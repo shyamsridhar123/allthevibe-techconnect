@@ -30,23 +30,41 @@ export default function Logo() {
         </div>
 
         {/* Main text */}
-        <h1 className="relative text-5xl md:text-7xl lg:text-8xl font-bold text-center whitespace-nowrap">
-          <span
-            className="relative inline-block"
-            style={{
-              fontFamily: "'Brush Script MT', 'Segoe Script', cursive",
-              fontStyle: "italic",
-              letterSpacing: "0.02em",
-              background: "linear-gradient(90deg, #00ffff 0%, #00d4ff 30%, #a855f7 70%, #c084fc 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-              filter: "drop-shadow(0 0 20px rgba(0, 255, 255, 0.6)) drop-shadow(0 0 40px rgba(168, 85, 247, 0.4))",
-            }}
-          >
-            oneshot
-          </span>
-        </h1>
+        <div className="flex flex-col items-center">
+          <h1 className="relative text-5xl md:text-7xl lg:text-8xl font-bold text-center whitespace-nowrap">
+            <span
+              className="relative inline-block"
+              style={{
+                fontFamily: "'Brush Script MT', 'Segoe Script', cursive",
+                fontStyle: "italic",
+                letterSpacing: "0.02em",
+                background: "linear-gradient(90deg, #00ffff 0%, #00d4ff 30%, #a855f7 70%, #c084fc 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                filter: "drop-shadow(0 0 20px rgba(0, 255, 255, 0.6)) drop-shadow(0 0 40px rgba(168, 85, 247, 0.4))",
+              }}
+            >
+              oneshot
+            </span>
+          </h1>
+          <h2 className="relative text-xl md:text-2xl lg:text-3xl font-light text-center mt-2 tracking-widest">
+            <span
+              className="relative inline-block"
+              style={{
+                fontFamily: "'Brush Script MT', 'Segoe Script', cursive",
+                fontStyle: "italic",
+                background: "linear-gradient(90deg, #a855f7 0%, #c084fc 50%, #00ffff 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                filter: "drop-shadow(0 0 10px rgba(168, 85, 247, 0.5))",
+              }}
+            >
+              all the vibes
+            </span>
+          </h2>
+        </div>
 
         {/* Right decorative line */}
         <div className="hidden md:flex items-center ml-4">
