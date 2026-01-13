@@ -46,7 +46,7 @@ export default function LandingPage() {
 
       {/* 3D scene with neural globe - middle layer */}
       <div className="absolute inset-0 z-5 flex items-center justify-center">
-        <div className="w-[320px] h-[320px] md:w-[400px] md:h-[400px]">
+        <div className="w-[220px] h-[220px] sm:w-[280px] sm:h-[280px] md:w-[350px] md:h-[350px] lg:w-[400px] lg:h-[400px] -mt-16 sm:-mt-12 md:-mt-8">
           <Scene3D 
             showParticles={false} 
             showGlobe={true}
@@ -57,7 +57,7 @@ export default function LandingPage() {
 
       {/* Logo overlay - positioned below the globe */}
       <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
-        <div className="relative flex flex-col items-center mt-[320px] md:mt-[400px]">
+        <div className="relative flex flex-col items-center mt-[180px] sm:mt-[220px] md:mt-[280px] lg:mt-[320px] px-4">
           <div className="pointer-events-auto">
             <Logo />
           </div>
@@ -73,7 +73,7 @@ export default function LandingPage() {
       />
 
       {/* Sparkle decoration */}
-      <div className="absolute bottom-12 right-12 z-10 animate-pulse">
+      <div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 md:bottom-12 md:right-12 z-10 animate-pulse">
         <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M20 0L21.5 18.5L40 20L21.5 21.5L20 40L18.5 21.5L0 20L18.5 18.5L20 0Z"

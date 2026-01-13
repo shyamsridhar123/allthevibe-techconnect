@@ -30,8 +30,8 @@ export default function Logo() {
         </div>
 
         {/* Main text */}
-        <div className="flex flex-col items-center">
-          <h1 className="relative text-5xl md:text-7xl lg:text-8xl font-bold text-center whitespace-nowrap">
+        <div className="flex flex-col items-center px-2">
+          <h1 className="relative text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-center whitespace-nowrap">
             <span
               className="relative inline-block"
               style={{
@@ -48,7 +48,7 @@ export default function Logo() {
               oneshot
             </span>
           </h1>
-          <h2 className="relative text-xl md:text-2xl lg:text-3xl font-light text-center mt-2 tracking-widest">
+          <h2 className="relative text-base sm:text-lg md:text-2xl lg:text-3xl font-light text-center mt-1 sm:mt-2 tracking-wider sm:tracking-widest">
             <span
               className="relative inline-block"
               style={{
