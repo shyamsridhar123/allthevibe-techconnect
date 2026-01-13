@@ -18,23 +18,26 @@ export default function Logo() {
     <div
       className={`relative transition-all duration-1000 ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}
     >
-      <div className="absolute inset-0 blur-3xl opacity-60 bg-gradient-to-r from-cyan-400 to-purple-500" />
+      {/* Glow effect behind text */}
+      <div className="absolute inset-0 blur-3xl opacity-50 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-600" />
 
       {/* Main text */}
-      <h1 className="relative text-7xl md:text-9xl font-bold text-center">
+      <h1 className="relative text-6xl md:text-8xl font-bold text-center">
         <span
-          className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent"
+          className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent"
           style={{
-            fontFamily: "'Dancing Script', 'Brush Script MT', cursive",
+            fontFamily: "Brush Script MT, cursive",
             fontStyle: "italic",
-            fontWeight: 700,
-            letterSpacing: "0.02em",
-            textShadow: "0 0 40px rgba(0, 221, 255, 0.8), 0 0 80px rgba(170, 102, 255, 0.6)",
+            letterSpacing: "0.05em",
+            textShadow: "0 0 30px rgba(0, 255, 255, 0.5), 0 0 60px rgba(255, 0, 255, 0.3)",
           }}
         >
           all the vibes
         </span>
       </h1>
+
+      {/* Neon underline effect */}
+      <div className="mt-4 h-1 w-full bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 rounded-full opacity-60 blur-sm" />
     </div>
   )
 }

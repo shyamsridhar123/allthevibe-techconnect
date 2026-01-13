@@ -8,12 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@expo/dom-webview':
-        specifier: latest
-        version: 0.2.8(expo@54.0.31)(react-native@0.83.1(@babel/core@7.28.6)(@types/react@19.0.0)(react@19.2.0))(react@19.2.0)
-      '@expo/metro-runtime':
-        specifier: latest
-        version: 6.1.2(expo@54.0.31)(react-dom@19.2.0(react@19.2.0))(react-native@0.83.1(@babel/core@7.28.6)(@types/react@19.0.0)(react@19.2.0))(react@19.2.0)
       '@hookform/resolvers':
         specifier: ^3.10.0
         version: 3.10.0(react-hook-form@7.60.0(react@19.2.0))
@@ -164,15 +158,6 @@ importers:
       react-native:
         specifier: latest
         version: 0.83.1(@babel/core@7.28.6)(@types/react@19.0.0)(react@19.2.0)
-      react-native-reanimated:
-        specifier: latest
-        version: 4.2.1(react-native-worklets@0.7.1(@babel/core@7.28.6)(react-native@0.83.1(@babel/core@7.28.6)(@types/react@19.0.0)(react@19.2.0))(react@19.2.0))(react-native@0.83.1(@babel/core@7.28.6)(@types/react@19.0.0)(react@19.2.0))(react@19.2.0)
-      react-native-web:
-        specifier: latest
-        version: 0.21.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      react-native-webview:
-        specifier: latest
-        version: 13.16.0(react-native@0.83.1(@babel/core@7.28.6)(@types/react@19.0.0)(react@19.2.0))(react@19.2.0)
       react-resizable-panels:
         specifier: ^2.1.7
         version: 2.1.7(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -189,7 +174,7 @@ importers:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@4.1.9)
       three:
-        specifier: 0.182.0
+        specifier: latest
         version: 0.182.0
       vaul:
         specifier: ^1.1.2
@@ -4877,6 +4862,7 @@ snapshots:
       '@babel/helper-plugin-utils': 7.28.6
     transitivePeerDependencies:
       - supports-color
+    optional: true
 
   '@babel/plugin-transform-class-properties@7.28.6(@babel/core@7.28.6)':
     dependencies:
@@ -4905,6 +4891,7 @@ snapshots:
       '@babel/traverse': 7.28.6
     transitivePeerDependencies:
       - supports-color
+    optional: true
 
   '@babel/plugin-transform-classes@7.28.6(@babel/core@7.28.6)':
     dependencies:
@@ -4988,6 +4975,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.28.6
       '@babel/helper-plugin-utils': 7.28.6
+    optional: true
 
   '@babel/plugin-transform-nullish-coalescing-operator@7.28.6(@babel/core@7.28.6)':
     dependencies:
@@ -5022,6 +5010,7 @@ snapshots:
       '@babel/helper-skip-transparent-expression-wrappers': 7.27.1
     transitivePeerDependencies:
       - supports-color
+    optional: true
 
   '@babel/plugin-transform-optional-chaining@7.28.6(@babel/core@7.28.6)':
     dependencies:
@@ -5131,6 +5120,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.28.6
       '@babel/helper-plugin-utils': 7.28.6
+    optional: true
 
   '@babel/plugin-transform-typescript@7.28.6(@babel/core@7.28.6)':
     dependencies:
@@ -5171,6 +5161,7 @@ snapshots:
       '@babel/plugin-transform-typescript': 7.28.6(@babel/core@7.28.6)
     transitivePeerDependencies:
       - supports-color
+    optional: true
 
   '@babel/preset-typescript@7.28.5(@babel/core@7.28.6)':
     dependencies:
@@ -5353,6 +5344,7 @@ snapshots:
       expo: 54.0.31(@babel/core@7.28.6)(@expo/dom-webview@0.2.8)(@expo/metro-runtime@6.1.2)(react-native-webview@13.16.0(react-native@0.83.1(@babel/core@7.28.6)(@types/react@19.0.0)(react@19.2.0))(react@19.2.0))(react-native@0.83.1(@babel/core@7.28.6)(@types/react@19.0.0)(react@19.2.0))(react@19.2.0)
       react: 19.2.0
       react-native: 0.83.1(@babel/core@7.28.6)(@types/react@19.0.0)(react@19.2.0)
+    optional: true
 
   '@expo/env@2.0.8':
     dependencies:
@@ -5439,6 +5431,7 @@ snapshots:
       whatwg-fetch: 3.6.20
     optionalDependencies:
       react-dom: 19.2.0(react@19.2.0)
+    optional: true
 
   '@expo/metro@54.2.0':
     dependencies:
@@ -6608,7 +6601,8 @@ snapshots:
 
   '@react-native/js-polyfills@0.83.1': {}
 
-  '@react-native/normalize-colors@0.74.89': {}
+  '@react-native/normalize-colors@0.74.89':
+    optional: true
 
   '@react-native/normalize-colors@0.81.5': {}
 
@@ -7309,6 +7303,7 @@ snapshots:
       node-fetch: 2.7.0
     transitivePeerDependencies:
       - encoding
+    optional: true
 
   cross-spawn@7.0.6:
     dependencies:
@@ -7321,6 +7316,7 @@ snapshots:
   css-in-js-utils@3.1.0:
     dependencies:
       hyphenate-style-name: 1.1.0
+    optional: true
 
   csstype@3.2.3: {}
 
@@ -7580,7 +7576,8 @@ snapshots:
     dependencies:
       bser: 2.1.1
 
-  fbjs-css-vars@1.0.2: {}
+  fbjs-css-vars@1.0.2:
+    optional: true
 
   fbjs@3.0.5:
     dependencies:
@@ -7593,6 +7590,7 @@ snapshots:
       ua-parser-js: 1.0.41
     transitivePeerDependencies:
       - encoding
+    optional: true
 
   fdir@6.5.0(picomatch@4.0.3):
     optionalDependencies:
@@ -7721,7 +7719,8 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  hyphenate-style-name@1.1.0: {}
+  hyphenate-style-name@1.1.0:
+    optional: true
 
   ieee754@1.2.1: {}
 
@@ -7747,6 +7746,7 @@ snapshots:
   inline-style-prefixer@7.0.1:
     dependencies:
       css-in-js-utils: 3.1.0
+    optional: true
 
   input-otp@1.4.1(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
     dependencies:
@@ -8053,7 +8053,8 @@ snapshots:
 
   memoize-one@5.2.1: {}
 
-  memoize-one@6.0.0: {}
+  memoize-one@6.0.0:
+    optional: true
 
   merge-stream@2.0.0: {}
 
@@ -8327,6 +8328,7 @@ snapshots:
   node-fetch@2.7.0:
     dependencies:
       whatwg-url: 5.0.0
+    optional: true
 
   node-forge@1.3.3: {}
 
@@ -8488,6 +8490,7 @@ snapshots:
   promise@7.3.1:
     dependencies:
       asap: 2.0.6
+    optional: true
 
   promise@8.3.0:
     dependencies:
@@ -8553,6 +8556,7 @@ snapshots:
     dependencies:
       react: 19.2.0
       react-native: 0.83.1(@babel/core@7.28.6)(@types/react@19.0.0)(react@19.2.0)
+    optional: true
 
   react-native-reanimated@4.2.1(react-native-worklets@0.7.1(@babel/core@7.28.6)(react-native@0.83.1(@babel/core@7.28.6)(@types/react@19.0.0)(react@19.2.0))(react@19.2.0))(react-native@0.83.1(@babel/core@7.28.6)(@types/react@19.0.0)(react@19.2.0))(react@19.2.0):
     dependencies:
@@ -8561,6 +8565,7 @@ snapshots:
       react-native-is-edge-to-edge: 1.2.1(react-native@0.83.1(@babel/core@7.28.6)(@types/react@19.0.0)(react@19.2.0))(react@19.2.0)
       react-native-worklets: 0.7.1(@babel/core@7.28.6)(react-native@0.83.1(@babel/core@7.28.6)(@types/react@19.0.0)(react@19.2.0))(react@19.2.0)
       semver: 7.7.3
+    optional: true
 
   react-native-web@0.21.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
     dependencies:
@@ -8576,6 +8581,7 @@ snapshots:
       styleq: 0.1.3
     transitivePeerDependencies:
       - encoding
+    optional: true
 
   react-native-webview@13.16.0(react-native@0.83.1(@babel/core@7.28.6)(@types/react@19.0.0)(react@19.2.0))(react@19.2.0):
     dependencies:
@@ -8583,6 +8589,7 @@ snapshots:
       invariant: 2.2.4
       react: 19.2.0
       react-native: 0.83.1(@babel/core@7.28.6)(@types/react@19.0.0)(react@19.2.0)
+    optional: true
 
   react-native-worklets@0.7.1(@babel/core@7.28.6)(react-native@0.83.1(@babel/core@7.28.6)(@types/react@19.0.0)(react@19.2.0))(react@19.2.0):
     dependencies:
@@ -8602,6 +8609,7 @@ snapshots:
       semver: 7.7.3
     transitivePeerDependencies:
       - supports-color
+    optional: true
 
   react-native@0.83.1(@babel/core@7.28.6)(@types/react@19.0.0)(react@19.2.0):
     dependencies:
@@ -8830,7 +8838,8 @@ snapshots:
 
   server-only@0.0.1: {}
 
-  setimmediate@1.0.5: {}
+  setimmediate@1.0.5:
+    optional: true
 
   setprototypeof@1.2.0: {}
 
@@ -8954,7 +8963,8 @@ snapshots:
     optionalDependencies:
       '@babel/core': 7.28.6
 
-  styleq@0.1.3: {}
+  styleq@0.1.3:
+    optional: true
 
   sucrase@3.35.1:
     dependencies:
@@ -9068,7 +9078,8 @@ snapshots:
 
   toidentifier@1.0.1: {}
 
-  tr46@0.0.3: {}
+  tr46@0.0.3:
+    optional: true
 
   troika-three-text@0.52.4(three@0.182.0):
     dependencies:
@@ -9106,7 +9117,8 @@ snapshots:
 
   typescript@5.0.2: {}
 
-  ua-parser-js@1.0.41: {}
+  ua-parser-js@1.0.41:
+    optional: true
 
   undici-types@6.11.1: {}
 
@@ -9204,7 +9216,8 @@ snapshots:
 
   webgl-sdf-generator@1.1.1: {}
 
-  webidl-conversions@3.0.1: {}
+  webidl-conversions@3.0.1:
+    optional: true
 
   webidl-conversions@5.0.0: {}
 
@@ -9220,6 +9233,7 @@ snapshots:
     dependencies:
       tr46: 0.0.3
       webidl-conversions: 3.0.1
+    optional: true
 
   which@2.0.2:
     dependencies:

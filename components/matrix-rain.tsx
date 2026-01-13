@@ -12,19 +12,12 @@ export default function MatrixRain() {
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
-    const setCanvasSize = () => {
-      const width = Math.max(window.innerWidth, 1)
-      const height = Math.max(window.innerHeight, 1)
-      canvas.width = width
-      canvas.height = height
-      return { width, height }
-    }
-
-    const { width, height } = setCanvasSize()
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
 
     const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*()_+-=[]{}|;:,.<>?"
     const fontSize = 14
-    const columns = Math.max(Math.floor(width / fontSize), 1)
+    const columns = Math.floor(canvas.width / fontSize)
 
     // Initialize drops
     const drops: number[] = []
@@ -73,7 +66,8 @@ export default function MatrixRain() {
     const interval = setInterval(draw, 35)
 
     const handleResize = () => {
-      setCanvasSize()
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
     }
 
     window.addEventListener("resize", handleResize)
