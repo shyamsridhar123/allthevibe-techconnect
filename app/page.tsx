@@ -14,17 +14,23 @@ const Scene3D = dynamic(() => import("@/components/scene-3d"), {
 })
 
 export default function LandingPage() {
+  const [mounted, setMounted] = useState(false)
   const [showCutscene, setShowCutscene] = useState(true)
   const [cutsceneComplete, setCutsceneComplete] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
     const timer = setTimeout(() => {
       setShowCutscene(false)
       setCutsceneComplete(true)
-    }, 4000) // 4 second cutscene
+    }, 4000)
 
     return () => clearTimeout(timer)
   }, [])
+
+  if (!mounted) {
+    return <div className="w-full h-screen bg-[#050010]" />
+  }
 
   return (
     <div className="relative w-full h-screen overflow-hidden bg-[#050010]">
