@@ -3,8 +3,8 @@ import type { Metadata } from "next"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "All The Vibes - Neural Network Experience",
-  description: "Experience the future with All The Vibes - A Matrix-inspired neural network visualization",
+  title: "OneShot - Neural Network Experience",
+  description: "Experience the future with OneShot - A Matrix-inspired neural network visualization",
 }
 
 export default function RootLayout({
