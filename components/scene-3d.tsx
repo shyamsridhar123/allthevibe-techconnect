@@ -317,7 +317,11 @@ export default function Scene3D({
 }: Scene3DProps) {
   return (
     <div className={`w-full h-full ${className}`}>
-      <Canvas camera={{ position: [0, 0, 3.2], fov: 50 }}>
+      <Canvas 
+        camera={{ position: [0, 0, 3.2], fov: 50 }}
+        gl={{ alpha: true, antialias: true }}
+        style={{ background: 'transparent' }}
+      >
         {/* Lighting */}
         <ambientLight intensity={0.3} />
         <pointLight position={[3, 3, 3]} intensity={0.5} color="#00ffff" />
