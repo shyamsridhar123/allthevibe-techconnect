@@ -19,25 +19,44 @@ export default function Logo() {
       className={`relative transition-all duration-1000 ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}
     >
       {/* Glow effect behind text */}
-      <div className="absolute inset-0 blur-3xl opacity-50 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-600" />
+      <div className="absolute inset-0 blur-3xl opacity-40 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500" />
 
-      {/* Main text */}
-      <h1 className="relative text-6xl md:text-8xl font-bold text-center">
-        <span
-          className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent"
-          style={{
-            fontFamily: "Brush Script MT, cursive",
-            fontStyle: "italic",
-            letterSpacing: "0.05em",
-            textShadow: "0 0 30px rgba(0, 255, 255, 0.5), 0 0 60px rgba(255, 0, 255, 0.3)",
-          }}
-        >
-          all the vibes
-        </span>
-      </h1>
+      {/* Main logo container with decorative lines */}
+      <div className="relative flex items-center justify-center">
+        {/* Left decorative line */}
+        <div className="hidden md:flex items-center mr-4">
+          <div className="w-24 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-cyan-400 opacity-80" />
+          <div className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_10px_#00ffff] ml-1" />
+        </div>
 
-      {/* Neon underline effect */}
-      <div className="mt-4 h-1 w-full bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 rounded-full opacity-60 blur-sm" />
+        {/* Main text */}
+        <h1 className="relative text-5xl md:text-7xl lg:text-8xl font-bold text-center whitespace-nowrap">
+          <span
+            className="relative inline-block"
+            style={{
+              fontFamily: "'Brush Script MT', 'Segoe Script', cursive",
+              fontStyle: "italic",
+              letterSpacing: "0.02em",
+              background: "linear-gradient(90deg, #00ffff 0%, #00d4ff 30%, #a855f7 70%, #c084fc 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+              filter: "drop-shadow(0 0 20px rgba(0, 255, 255, 0.6)) drop-shadow(0 0 40px rgba(168, 85, 247, 0.4))",
+            }}
+          >
+            all the vibes
+          </span>
+        </h1>
+
+        {/* Right decorative line */}
+        <div className="hidden md:flex items-center ml-4">
+          <div className="w-2 h-2 rounded-full bg-purple-400 shadow-[0_0_10px_#a855f7] mr-1" />
+          <div className="w-24 h-[2px] bg-gradient-to-r from-purple-400 via-purple-400 to-transparent opacity-80" />
+        </div>
+      </div>
+
+      {/* Subtle underline glow */}
+      <div className="mt-2 mx-auto w-3/4 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent" />
     </div>
   )
 }
