@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import dynamic from "next/dynamic"
+import MatrixRain from "@/components/matrix-rain"
 import Logo from "@/components/logo"
 import Cutscene from "@/components/cutscene"
 
@@ -40,18 +41,23 @@ export default function LandingPage() {
         setCutsceneComplete(true)
       }} />}
 
-      {/* Full-screen 3D scene with particles and neural globe */}
-      <div className="absolute inset-0 z-0">
-        <Scene3D 
-          showParticles={true} 
-          showGlobe={true}
-          bloomIntensity={cutsceneComplete ? 1.5 : 2.5}
-        />
+      {/* Matrix rain background - lowest layer */}
+      <MatrixRain />
+
+      {/* 3D scene with neural globe - middle layer */}
+      <div className="absolute inset-0 z-5 flex items-center justify-center">
+        <div className="w-[320px] h-[320px] md:w-[400px] md:h-[400px]">
+          <Scene3D 
+            showParticles={false} 
+            showGlobe={true}
+            bloomIntensity={cutsceneComplete ? 1.5 : 2.5}
+          />
+        </div>
       </div>
 
       {/* Logo overlay - positioned below the globe */}
       <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
-        <div className="relative flex flex-col items-center mt-[280px] md:mt-[350px]">
+        <div className="relative flex flex-col items-center mt-[320px] md:mt-[400px]">
           <div className="pointer-events-auto">
             <Logo />
           </div>
