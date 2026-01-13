@@ -1,17 +1,26 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import MatrixRain from "@/components/matrix-rain"
-import Brain3D from "@/components/brain-3d"
+import dynamic from "next/dynamic"
 import Logo from "@/components/logo"
 import Cutscene from "@/components/cutscene"
 
+// Dynamic import for 3D scene to avoid SSR issues
+const Scene3D = dynamic(() => import("@/components/scene-3d"), { 
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-full bg-[#050010]" />
+  )
+})
+
 export default function LandingPage() {
   const [showCutscene, setShowCutscene] = useState(true)
+  const [cutsceneComplete, setCutsceneComplete] = useState(false)
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowCutscene(false)
+      setCutsceneComplete(true)
     }, 4000) // 4 second cutscene
 
     return () => clearTimeout(timer)
@@ -19,22 +28,37 @@ export default function LandingPage() {
 
   return (
     <div className="relative w-full h-screen overflow-hidden bg-[#050010]">
-      {showCutscene && <Cutscene onComplete={() => setShowCutscene(false)} />}
+      {/* Cutscene overlay */}
+      {showCutscene && <Cutscene onComplete={() => {
+        setShowCutscene(false)
+        setCutsceneComplete(true)
+      }} />}
 
-      <MatrixRain />
-
-      {/* Ambient glow effects */}
-      <div className="absolute inset-0 z-5 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
+      {/* Full-screen 3D scene with particles and neural globe */}
+      <div className="absolute inset-0 z-0">
+        <Scene3D 
+          showParticles={true} 
+          showGlobe={true}
+          bloomIntensity={cutsceneComplete ? 1.5 : 2.5}
+        />
       </div>
 
-      <div className="absolute inset-0 z-10 flex items-center justify-center">
-        <div className="relative flex flex-col items-center gap-4">
-          <Brain3D />
-          <Logo />
+      {/* Logo overlay - positioned below the globe */}
+      <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
+        <div className="relative flex flex-col items-center mt-[280px] md:mt-[350px]">
+          <div className="pointer-events-auto">
+            <Logo />
+          </div>
         </div>
       </div>
+
+      {/* Vignette effect */}
+      <div 
+        className="absolute inset-0 z-5 pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle at center, transparent 30%, rgba(5, 0, 16, 0.7) 100%)'
+        }}
+      />
 
       {/* Sparkle decoration */}
       <div className="absolute bottom-12 right-12 z-10 animate-pulse">
@@ -51,6 +75,14 @@ export default function LandingPage() {
           </defs>
         </svg>
       </div>
+
+      {/* Subtle scanline effect */}
+      <div 
+        className="absolute inset-0 z-20 pointer-events-none opacity-[0.03]"
+        style={{
+          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 255, 0.1) 2px, rgba(0, 255, 255, 0.1) 4px)',
+        }}
+      />
     </div>
   )
 }
