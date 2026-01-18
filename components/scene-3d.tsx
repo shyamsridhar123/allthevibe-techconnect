@@ -10,7 +10,7 @@ import * as THREE from "three"
 // ============================================
 // PARTICLE FIELD COMPONENT
 // ============================================
-function ParticleField({ count = 1500, color = "#00ffff" }: { count?: number; color?: string }) {
+function ParticleField({ count = 1500, color = "#ffffff" }: { count?: number; color?: string }) {
   const meshRef = useRef<THREE.InstancedMesh>(null)
   const { pointer } = useThree()
   
@@ -210,11 +210,11 @@ function NeuralGlobe({ onNodeHover, onNodeClick, isActive = true }: NeuralGlobeP
       {/* Outer glass sphere */}
       <Sphere args={[1.15, 64, 64]}>
         <meshPhysicalMaterial
-          color="#0a4a5a"
+          color="#333333"
           transparent
           opacity={0.1}
           roughness={0.1}
-          metalness={0}
+          metalness={0.2}
           clearcoat={0.9}
           clearcoatRoughness={0.1}
         />
@@ -223,7 +223,7 @@ function NeuralGlobe({ onNodeHover, onNodeClick, isActive = true }: NeuralGlobeP
       {/* Wireframe sphere - outer ring */}
       <Sphere args={[1.15, 32, 32]}>
         <meshBasicMaterial 
-          color="#00aaaa" 
+          color="#888888" 
           wireframe 
           transparent 
           opacity={0.12} 
@@ -233,7 +233,7 @@ function NeuralGlobe({ onNodeHover, onNodeClick, isActive = true }: NeuralGlobeP
       {/* Inner wireframe sphere */}
       <Sphere args={[1.1, 24, 24]}>
         <meshBasicMaterial 
-          color="#00dddd" 
+          color="#aaaaaa" 
           wireframe 
           transparent 
           opacity={0.06} 
@@ -245,8 +245,8 @@ function NeuralGlobe({ onNodeHover, onNodeClick, isActive = true }: NeuralGlobeP
         const isHovered = hoveredNode === i
         const isPulsing = pulsingNodes.has(i)
         const scale = isHovered ? 1.5 : isPulsing ? 1.8 : 1
-        const coreColor = isHovered ? "#ffffff" : isPulsing ? "#ff00ff" : "#c0ffff"
-        const glowColor = isPulsing ? "#ff00ff" : "#00ffff"
+        const coreColor = isHovered ? "#ffffff" : isPulsing ? "#ffffff" : "#e0e0e0"
+        const glowColor = isPulsing ? "#ffffff" : "#cccccc"
         
         return (
           <group 
@@ -288,7 +288,7 @@ function NeuralGlobe({ onNodeHover, onNodeClick, isActive = true }: NeuralGlobeP
           <Line
             key={i}
             points={[nodes[start], nodes[end]]}
-            color={isPulsingConnection ? "#ff00ff" : isHighlighted ? "#00ffff" : "#00cccc"}
+            color={isPulsingConnection ? "#ffffff" : isHighlighted ? "#ffffff" : "#888888"}
             lineWidth={isHighlighted || isPulsingConnection ? 2 : 1}
             transparent
             opacity={isHighlighted ? 0.9 : isPulsingConnection ? 0.7 : 0.4}
@@ -322,17 +322,17 @@ export default function Scene3D({
         gl={{ alpha: true, antialias: true }}
         style={{ background: 'transparent' }}
       >
-        {/* Lighting */}
-        <ambientLight intensity={0.3} />
-        <pointLight position={[3, 3, 3]} intensity={0.5} color="#00ffff" />
-        <pointLight position={[-3, -2, 2]} intensity={0.3} color="#8b5cf6" />
-        <pointLight position={[0, 0, 4]} intensity={0.4} color="#00dddd" />
+        {/* Lighting - monochrome white */}
+        <ambientLight intensity={0.4} />
+        <pointLight position={[3, 3, 3]} intensity={0.5} color="#ffffff" />
+        <pointLight position={[-3, -2, 2]} intensity={0.3} color="#aaaaaa" />
+        <pointLight position={[0, 0, 4]} intensity={0.4} color="#ffffff" />
         
-        {/* Particle Fields */}
+        {/* Particle Fields - white/silver */}
         {showParticles && (
           <>
-            <ParticleField count={1200} color="#00ffff" />
-            <ParticleField count={400} color="#a855f7" />
+            <ParticleField count={1200} color="#ffffff" />
+            <ParticleField count={400} color="#888888" />
           </>
         )}
         

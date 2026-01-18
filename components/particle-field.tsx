@@ -12,7 +12,7 @@ interface ParticleFieldProps {
 
 export default function ParticleField({ 
   count = 1500, 
-  color = "#00ffff",
+  color = "#ffffff",
   size = 0.015
 }: ParticleFieldProps) {
   const pointsRef = useRef<THREE.Points>(null)
@@ -123,5 +123,5 @@ export default function ParticleField({
 
 // Secondary layer with different color for depth
 export function ParticleFieldPurple() {
-  return <ParticleField count={800} color="#a855f7" size={0.012} />
+  return <ParticleField count={800} color="#888888" size={0.012} />
 }

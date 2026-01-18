@@ -23,13 +23,13 @@ export default function MatrixRain() {
     const drops: number[] = []
     const speeds: number[] = []
     const opacities: number[] = []
-    const hues: number[] = [] // Color variation per column
+    const brightness: number[] = [] // Grayscale brightness variation
     
     for (let i = 0; i < columns; i++) {
       drops[i] = Math.random() * -50 - 10
       speeds[i] = Math.random() * 0.5 + 0.3
       opacities[i] = Math.random() * 0.4 + 0.2
-      hues[i] = Math.random() * 60 + 180 // Range from cyan (180) to purple (240)
+      brightness[i] = Math.random() * 40 + 60 // Range from 60% to 100% brightness
     }
 
     // Trail lengths for each column
@@ -41,8 +41,8 @@ export default function MatrixRain() {
     function draw() {
       if (!ctx || !canvas) return
 
-      // Dark fade effect with slight purple tint
-      ctx.fillStyle = "rgba(5, 0, 15, 0.08)"
+      // Dark fade effect - pure black
+      ctx.fillStyle = "rgba(5, 0, 16, 0.08)"
       ctx.fillRect(0, 0, canvas.width, canvas.height)
 
       ctx.font = `${fontSize}px "Courier New", monospace`
@@ -60,12 +60,11 @@ export default function MatrixRain() {
           // Calculate opacity based on position in trail
           const trailOpacity = (1 - j / trailLength) * opacities[i]
           
-          // Color gradient from cyan to purple based on column
-          const hue = hues[i]
-          const saturation = 100
-          const lightness = j === 0 ? 70 : 50 - (j * 2) // Brighter head
+          // Monochrome - white/gray based on brightness and trail position
+          const baseBrightness = brightness[i]
+          const lightness = j === 0 ? baseBrightness : baseBrightness - (j * 3) // Brighter head
           
-          ctx.fillStyle = `hsla(${hue}, ${saturation}%, ${lightness}%, ${trailOpacity})`
+          ctx.fillStyle = `hsla(0, 0%, ${Math.max(20, lightness)}%, ${trailOpacity})`
           ctx.fillText(text, i * fontSize, y)
         }
 
@@ -78,7 +77,7 @@ export default function MatrixRain() {
             drops[i] = Math.random() * -20
             speeds[i] = Math.random() * 0.5 + 0.3
             opacities[i] = Math.random() * 0.4 + 0.2
-            hues[i] = Math.random() * 60 + 180
+            brightness[i] = Math.random() * 40 + 60
           }
         }
       }

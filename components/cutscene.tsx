@@ -487,17 +487,17 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
         ctx.save()
         
         if (p.type === 'dust') {
-          // Dust motes - soft white/cyan circles
+          // Dust motes - soft white circles
           const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size)
-          gradient.addColorStop(0, `rgba(200, 255, 255, ${currentOpacity})`)
-          gradient.addColorStop(1, `rgba(200, 255, 255, 0)`)
+          gradient.addColorStop(0, `rgba(255, 255, 255, ${currentOpacity})`)
+          gradient.addColorStop(1, `rgba(255, 255, 255, 0)`)
           ctx.fillStyle = gradient
           ctx.beginPath()
           ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2)
           ctx.fill()
         } else {
-          // Digital fragments - Matrix-style rectangles
-          ctx.fillStyle = `rgba(0, 255, 255, ${currentOpacity})`
+          // Digital fragments - white rectangles
+          ctx.fillStyle = `rgba(255, 255, 255, ${currentOpacity})`
           ctx.fillRect(p.x, p.y, p.size * 0.3, p.size)
           
           // Occasional character
@@ -655,7 +655,7 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
               style={{
                 top: `${20 + i * 25 + Math.random() * 10}%`,
                 height: '2px',
-                background: 'linear-gradient(90deg, transparent, rgba(0,255,255,0.5), rgba(255,0,255,0.5), transparent)',
+                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.5), rgba(200,200,200,0.5), transparent)',
                 transform: `translateX(${(Math.random() - 0.5) * 20}px)`,
               }}
             />
@@ -678,11 +678,11 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
         onClick={handleSkip}
         className="absolute top-3 right-3 sm:top-4 sm:right-4 z-[60] 
                    px-3 py-2 sm:px-4 sm:py-2 
-                   font-mono text-xs sm:text-sm text-cyan-400/70 
-                   border border-cyan-400/30 rounded backdrop-blur-sm
-                   hover:text-cyan-400 hover:border-cyan-400/60 hover:bg-cyan-400/10
-                   active:bg-cyan-400/20
-                   transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-cyan-400/50
+                   font-mono text-xs sm:text-sm text-white/70 
+                   border border-white/30 rounded backdrop-blur-sm
+                   hover:text-white hover:border-white/60 hover:bg-white/10
+                   active:bg-white/20
+                   transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/50
                    min-h-[44px] min-w-[44px] flex items-center justify-center"
         aria-label="Skip cutscene"
       >
@@ -693,7 +693,7 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
 
       {/* Deep background - staged reveal */}
       <motion.div 
-        className="absolute inset-0 bg-gradient-to-b from-[#0a0520] via-[#12082a] to-[#0a0520]"
+        className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#050505] to-[#0a0a0a]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: TIMING.backgroundFade }}
@@ -720,32 +720,32 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
             transformOrigin: 'center bottom'
           }}
         >
-          {/* Wall panels - left - purple tinted, brighter */}
+          {/* Wall panels - left - monochrome gray */}
           <div 
             className="absolute left-0 top-0 bottom-0 w-[25%]"
             style={{
-              background: 'linear-gradient(180deg, #2a1540 0%, #1a0c2a 50%, #120820 100%)',
+              background: 'linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 50%, #080808 100%)',
               boxShadow: 'inset -10px 0 30px rgba(0,0,0,0.3)',
-              borderRight: '3px solid #4a2a60'
+              borderRight: '3px solid #2a2a2a'
             }}
           >
             {/* Wall texture */}
             <div className="absolute inset-0 opacity-30" style={{
-              backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(168,85,247,0.1) 20px, rgba(168,85,247,0.1) 21px)'
+              backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(255,255,255,0.05) 20px, rgba(255,255,255,0.05) 21px)'
             }} />
           </div>
           
-          {/* Wall panels - right - purple tinted, brighter */}
+          {/* Wall panels - right - monochrome gray */}
           <div 
             className="absolute right-0 top-0 bottom-0 w-[25%]"
             style={{
-              background: 'linear-gradient(180deg, #2a1540 0%, #1a0c2a 50%, #120820 100%)',
+              background: 'linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 50%, #080808 100%)',
               boxShadow: 'inset 10px 0 30px rgba(0,0,0,0.3)',
-              borderLeft: '3px solid #4a2a60'
+              borderLeft: '3px solid #2a2a2a'
             }}
           >
             <div className="absolute inset-0 opacity-30" style={{
-              backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(168,85,247,0.1) 20px, rgba(168,85,247,0.1) 21px)'
+              backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(255,255,255,0.05) 20px, rgba(255,255,255,0.05) 21px)'
             }} />
           </div>
           
@@ -753,20 +753,20 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
           <motion.div 
             className="absolute left-[25%] right-[25%] top-0 bottom-0"
             animate={{
-              boxShadow: `inset 0 0 ${100 + doorwayIntensity * 50}px rgba(0,255,255,${0.15 + doorwayIntensity * 0.15})`
+              boxShadow: `inset 0 0 ${100 + doorwayIntensity * 50}px rgba(255,255,255,${0.1 + doorwayIntensity * 0.1})`
             }}
             transition={{ duration: 0.3 }}
             style={{
-              background: 'radial-gradient(ellipse at center 30%, #150a25 0%, #080412 50%, #030208 100%)',
+              background: 'radial-gradient(ellipse at center 30%, #151515 0%, #0a0a0a 50%, #030303 100%)',
               filter: `brightness(${lightFlicker})`
             }}
           >
             {/* Door frame */}
-            <div className="absolute inset-0 border-4 border-[#2a1840]" style={{ 
+            <div className="absolute inset-0 border-4 border-[#1a1a1a]" style={{ 
               boxShadow: 'inset 0 0 20px rgba(0,0,0,0.5)' 
             }} />
             
-            {/* Brighter cyan/purple glow from within - intensifies as cat passes */}
+            {/* White glow from within - intensifies as cat passes */}
             <motion.div 
               className="absolute inset-[10%] rounded-full"
               animate={{ 
@@ -775,7 +775,7 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
               }}
               transition={{ duration: 0.3 }}
               style={{
-                background: 'radial-gradient(circle, rgba(0,255,255,0.25) 0%, rgba(168,85,247,0.15) 50%, transparent 70%)',
+                background: 'radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(200,200,200,0.08) 50%, transparent 70%)',
               }}
             />
             
@@ -792,7 +792,7 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
                     left: `${20 + i * 15}%`,
                     width: '2px',
                     height: '150%',
-                    background: `linear-gradient(to bottom, transparent, rgba(0,255,255,${0.1 + i * 0.02}), transparent)`,
+                    background: `linear-gradient(to bottom, transparent, rgba(255,255,255,${0.1 + i * 0.02}), transparent)`,
                     transformOrigin: 'bottom center',
                     transform: `rotate(${-20 + i * 10}deg)`,
                   }}
@@ -810,34 +810,34 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
           </motion.div>
         </div>
 
-        {/* Left wall - 3D perspective - brighter purple */}
+        {/* Left wall - 3D perspective - monochrome gray */}
         <div 
           className="absolute left-0 top-[5%] bottom-[40%] w-[20%]"
           style={{
             transformStyle: 'preserve-3d',
             transform: 'rotateY(75deg)',
             transformOrigin: 'left center',
-            background: 'linear-gradient(90deg, #100825 0%, #1a0c30 50%, #251240 100%)',
+            background: 'linear-gradient(90deg, #0a0a0a 0%, #121212 50%, #181818 100%)',
             boxShadow: 'inset -20px 0 40px rgba(0,0,0,0.4)'
           }}
         >
           {/* Wall molding */}
-          <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-[#3a2050] to-[#251240]" />
-          <div className="absolute top-0 left-0 right-0 h-4 bg-gradient-to-b from-[#3a2050] to-[#251240]" />
+          <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-[#222222] to-[#181818]" />
+          <div className="absolute top-0 left-0 right-0 h-4 bg-gradient-to-b from-[#222222] to-[#181818]" />
         </div>
 
-        {/* Right wall - 3D perspective - brighter purple */}
+        {/* Right wall - 3D perspective - monochrome gray */}
         <div 
           className="absolute right-0 top-[5%] bottom-[40%] w-[20%]"
           style={{
             transformStyle: 'preserve-3d',
             transform: 'rotateY(-75deg)',
             transformOrigin: 'right center',
-            background: 'linear-gradient(-90deg, #100825 0%, #1a0c30 50%, #251240 100%)',
+            background: 'linear-gradient(-90deg, #0a0a0a 0%, #121212 50%, #181818 100%)',
             boxShadow: 'inset 20px 0 40px rgba(0,0,0,0.4)'
           }}
         >
-          {/* Cables hanging - cyan and purple, with dynamic sway */}
+          {/* Cables hanging - white/gray, with dynamic sway */}
           <motion.div 
             className="absolute right-[20%] top-[10%] w-3 h-[60%]"
             animate={{ 
@@ -847,8 +847,8 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
             transition={springs.gentle}
             style={{ transformOrigin: 'top center' }}
           >
-            <div className="w-full h-full bg-gradient-to-b from-[#00ffff] via-[#00aaaa] to-[#006666] rounded-full opacity-80" 
-                 style={{ boxShadow: '0 0 15px rgba(0,255,255,0.5)' }} />
+            <div className="w-full h-full bg-gradient-to-b from-[#ffffff] via-[#aaaaaa] to-[#666666] rounded-full opacity-80" 
+                 style={{ boxShadow: '0 0 15px rgba(255,255,255,0.3)' }} />
           </motion.div>
           <motion.div 
             className="absolute right-[35%] top-[15%] w-2 h-[50%]"
@@ -859,8 +859,8 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
             transition={{ ...springs.gentle, delay: 0.1 }}
             style={{ transformOrigin: 'top center' }}
           >
-            <div className="w-full h-full bg-gradient-to-b from-[#c084fc] via-[#a855f7] to-[#7c3aed] rounded-full opacity-80"
-                 style={{ boxShadow: '0 0 15px rgba(168,85,247,0.5)' }} />
+            <div className="w-full h-full bg-gradient-to-b from-[#cccccc] via-[#888888] to-[#444444] rounded-full opacity-80"
+                 style={{ boxShadow: '0 0 15px rgba(255,255,255,0.2)' }} />
           </motion.div>
           <motion.div 
             className="absolute right-[50%] top-[20%] w-2 h-[40%]"
@@ -871,11 +871,11 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
             transition={{ ...springs.gentle, delay: 0.2 }}
             style={{ transformOrigin: 'top center' }}
           >
-            <div className="w-full h-full bg-gradient-to-b from-[#00ccdd] via-[#0099aa] to-[#006677] rounded-full opacity-70" />
+            <div className="w-full h-full bg-gradient-to-b from-[#dddddd] via-[#999999] to-[#555555] rounded-full opacity-70" />
           </motion.div>
           
           {/* Wall molding */}
-          <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-[#3a2050] to-[#251240]" />
+          <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-[#222222] to-[#181818]" />
         </div>
       </motion.div>
 
@@ -899,36 +899,36 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
             transformStyle: 'preserve-3d'
           }}
         >
-          {/* Main checkered pattern - brighter purple tinted */}
+          {/* Main checkered pattern - monochrome */}
           <div 
             className="absolute inset-0"
             style={{
               background: `
                 repeating-conic-gradient(
                   from 0deg at 60px 60px,
-                  #2a1538 0deg 90deg,
-                  #120a1c 90deg 180deg
+                  #1a1a1a 0deg 90deg,
+                  #0a0a0a 90deg 180deg
                 )
               `,
               backgroundSize: '120px 120px',
             }}
           />
           
-          {/* Floor shine/reflection - stronger cyan tint */}
+          {/* Floor shine/reflection - white tint */}
           <div 
             className="absolute inset-0"
             style={{
-              background: 'linear-gradient(180deg, rgba(0,255,255,0.12) 0%, rgba(168,85,247,0.05) 30%, transparent 70%, rgba(0,0,0,0.3) 100%)'
+              background: 'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(200,200,200,0.03) 30%, transparent 70%, rgba(0,0,0,0.3) 100%)'
             }}
           />
           
-          {/* Grid lines for depth - brighter */}
+          {/* Grid lines for depth - white */}
           <div 
             className="absolute inset-0 opacity-50"
             style={{
               backgroundImage: `
-                linear-gradient(90deg, rgba(168,85,247,0.3) 1px, transparent 1px),
-                linear-gradient(0deg, rgba(0,255,255,0.25) 1px, transparent 1px)
+                linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px),
+                linear-gradient(0deg, rgba(255,255,255,0.08) 1px, transparent 1px)
               `,
               backgroundSize: '60px 60px'
             }}
@@ -945,7 +945,7 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
             style={{
               width: '20%',
               height: '100%',
-              background: 'radial-gradient(ellipse at center, rgba(0,255,255,0.3) 0%, transparent 60%)',
+              background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.15) 0%, transparent 60%)',
               filter: 'blur(20px)'
             }}
           />
@@ -955,7 +955,7 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
         <div 
           className="absolute top-0 left-0 right-0 h-24"
           style={{
-            background: 'linear-gradient(180deg, rgba(10,5,32,0.8) 0%, transparent 100%)'
+            background: 'linear-gradient(180deg, rgba(5,5,5,0.8) 0%, transparent 100%)'
           }}
         />
       </motion.div>
@@ -964,15 +964,15 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at 50% 30%, rgba(0,255,255,0.08) 0%, transparent 60%)'
+          background: 'radial-gradient(ellipse at 50% 30%, rgba(255,255,255,0.05) 0%, transparent 60%)'
         }}
       />
 
-      {/* Ambient fog/atmosphere - purple/cyan, more visible */}
+      {/* Ambient fog/atmosphere - gray */}
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at 50% 70%, rgba(168,85,247,0.12) 0%, transparent 50%)'
+          background: 'radial-gradient(ellipse at 50% 70%, rgba(150,150,150,0.06) 0%, transparent 50%)'
         }}
       />
 
@@ -984,7 +984,7 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
         }}
         transition={{ duration: 0.3 }}
         style={{
-          background: 'linear-gradient(180deg, transparent 0%, rgba(0,255,255,0.08) 50%, rgba(168,85,247,0.1) 100%)',
+          background: 'linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.05) 50%, rgba(200,200,200,0.06) 100%)',
           clipPath: 'polygon(40% 0%, 60% 0%, 100% 100%, 0% 100%)'
         }}
       >
@@ -1003,16 +1003,16 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
         }}
         transition={{ duration: 0.1 }}
         style={{
-          background: 'radial-gradient(ellipse at center, rgba(0,255,255,0.12) 0%, rgba(168,85,247,0.08) 40%, transparent 70%)'
+          background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.08) 0%, rgba(200,200,200,0.04) 40%, transparent 70%)'
         }}
       />
 
-      {/* Scanline CRT effect - cyan tinted */}
+      {/* Scanline CRT effect - white tinted */}
       <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
         <div 
           className="absolute inset-0"
           style={{
-            backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0, 255, 255, 0.1) 1px, rgba(0, 255, 255, 0.1) 2px)',
+            backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(255, 255, 255, 0.1) 1px, rgba(255, 255, 255, 0.1) 2px)',
             backgroundSize: '100% 3px'
           }}
         />
@@ -1059,7 +1059,7 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
                   style={{ 
                     width: '100%', 
                     height: '100%',
-                    filter: 'brightness(0.7) saturate(0.5) drop-shadow(0 0 15px rgba(0,255,255,0.6))',
+                    filter: 'brightness(0.7) saturate(0) drop-shadow(0 0 15px rgba(255,255,255,0.4))',
                     opacity: 0.6
                   }}
                 />
@@ -1068,7 +1068,7 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
               /* Ghost fallback silhouette */
               <div className="w-32 h-20 sm:w-40 sm:h-24 md:w-56 md:h-32 lg:w-72 lg:h-40 relative opacity-40">
                 <svg viewBox="0 0 200 100" className="w-full h-full" style={{ filter: 'blur(2px)' }}>
-                  <g fill="rgba(0,255,255,0.3)">
+                  <g fill="rgba(255,255,255,0.3)">
                     <ellipse cx="100" cy="55" rx="45" ry="22" />
                     <circle cx="145" cy="40" r="20" />
                     <polygon points="130,22 138,5 146,22" />
@@ -1083,7 +1083,7 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
             <div 
               className="absolute inset-0 -z-10 blur-2xl opacity-50"
               style={{
-                background: 'radial-gradient(ellipse at center, rgba(0,255,255,0.4) 0%, transparent 70%)',
+                background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.25) 0%, transparent 70%)',
                 transform: 'scale(1.5)'
               }}
             />
@@ -1107,7 +1107,7 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
               bottom: catBottomPosition,
               transform: `translateX(-50%) scale(${catScale})`,
               transformStyle: 'preserve-3d',
-              filter: 'drop-shadow(0 10px 25px rgba(0,0,0,0.9)) drop-shadow(0 0 20px rgba(0,255,255,0.3))',
+              filter: 'drop-shadow(0 10px 25px rgba(0,0,0,0.9)) drop-shadow(0 0 20px rgba(255,255,255,0.2))',
               willChange: 'transform, left'
             }}
           >
@@ -1121,7 +1121,7 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
                   style={{ 
                     width: '100%', 
                     height: '100%',
-                    filter: 'brightness(1.2) drop-shadow(0 0 8px rgba(0,255,255,0.4))'
+                    filter: 'brightness(1.2) saturate(0.3) drop-shadow(0 0 8px rgba(255,255,255,0.3))'
                   }}
                 />
               </div>
@@ -1170,21 +1170,21 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
                   
                   {/* Glowing eyes */}
                   <g filter="url(#catGlow)">
-                    <ellipse cx="140" cy="38" rx="4" ry="5" fill="#00ffff">
+                    <ellipse cx="140" cy="38" rx="4" ry="5" fill="#ffffff">
                       <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite" />
                     </ellipse>
-                    <ellipse cx="152" cy="38" rx="4" ry="5" fill="#00ffff">
+                    <ellipse cx="152" cy="38" rx="4" ry="5" fill="#ffffff">
                       <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite" />
                     </ellipse>
                   </g>
                   
                   {/* Eye glow rings */}
-                  <ellipse cx="140" cy="38" rx="7" ry="8" fill="none" stroke="#00ffff" strokeWidth="1.5" opacity="0.4" />
-                  <ellipse cx="152" cy="38" rx="7" ry="8" fill="none" stroke="#00ffff" strokeWidth="1.5" opacity="0.4" />
+                  <ellipse cx="140" cy="38" rx="7" ry="8" fill="none" stroke="#ffffff" strokeWidth="1.5" opacity="0.4" />
+                  <ellipse cx="152" cy="38" rx="7" ry="8" fill="none" stroke="#ffffff" strokeWidth="1.5" opacity="0.4" />
                   
                   {/* Rim light outline */}
-                  <ellipse cx="100" cy="55" rx="46" ry="23" fill="none" stroke="#00ffff" strokeWidth="0.5" opacity="0.3" />
-                  <circle cx="145" cy="40" r="21" fill="none" stroke="#00ffff" strokeWidth="0.5" opacity="0.3" />
+                  <ellipse cx="100" cy="55" rx="46" ry="23" fill="none" stroke="#ffffff" strokeWidth="0.5" opacity="0.3" />
+                  <circle cx="145" cy="40" r="21" fill="none" stroke="#ffffff" strokeWidth="0.5" opacity="0.3" />
                   
                   {/* Shadow */}
                   <ellipse cx="100" cy="92" rx="55" ry="5" fill="rgba(0,0,0,0.5)" style={{ filter: 'blur(3px)' }} />
@@ -1196,7 +1196,7 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
             <div 
               className="absolute inset-0 -z-10 blur-xl opacity-30"
               style={{
-                background: 'radial-gradient(ellipse at center, rgba(0,255,255,0.3) 0%, transparent 70%)'
+                background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, transparent 70%)'
               }}
             />
           </motion.div>
@@ -1217,15 +1217,15 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
             {/* Scan line overlay on text */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
               <motion.div
-                className="absolute w-full h-[2px] bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent"
+                className="absolute w-full h-[2px] bg-gradient-to-r from-transparent via-white/30 to-transparent"
                 animate={{ top: ['0%', '100%'] }}
                 transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
               />
             </div>
             
-            {/* Chromatic aberration layers - enhanced */}
+            {/* Chromatic aberration layers - grayscale */}
             <motion.span
-              className="absolute inset-0 text-red-500/60"
+              className="absolute inset-0 text-gray-300/60"
               animate={{
                 x: [0, -3, 3, -2, 1, 0],
                 y: [0, 1, -1, 0],
@@ -1240,7 +1240,7 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
               {"// déjà vu..."}
             </motion.span>
             <motion.span
-              className="absolute inset-0 text-blue-400/60"
+              className="absolute inset-0 text-gray-400/60"
               animate={{
                 x: [0, 3, -3, 2, -1, 0],
                 y: [0, -1, 1, 0],
@@ -1252,7 +1252,7 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
               {"// déjà vu..."}
             </motion.span>
             <motion.span
-              className="absolute inset-0 text-green-400/30"
+              className="absolute inset-0 text-gray-500/30"
               animate={{
                 x: [0, 1, -1, 0],
                 opacity: [0.2, 0.4, 0.2]
@@ -1273,14 +1273,14 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
               }}
               transition={{ duration: 0.3, repeat: Infinity }}
               style={{
-                color: '#00ffff',
+                color: '#ffffff',
                 textShadow: `
-                  0 0 10px #00ffff, 
-                  0 0 20px #00ffff, 
-                  0 0 30px #a855f7, 
-                  2px 0 #ff0000, 
-                  -2px 0 #00ffff,
-                  0 0 40px rgba(0,255,255,0.5)
+                  0 0 10px #ffffff, 
+                  0 0 20px #ffffff, 
+                  0 0 30px #aaaaaa, 
+                  2px 0 #888888, 
+                  -2px 0 #ffffff,
+                  0 0 40px rgba(255,255,255,0.5)
                 `,
               }}
             >
@@ -1303,7 +1303,7 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(circle at center, transparent 30%, rgba(5, 0, 16, 0.7) 100%)'
+          background: 'radial-gradient(circle at center, transparent 30%, rgba(5, 5, 5, 0.7) 100%)'
         }}
       />
 
