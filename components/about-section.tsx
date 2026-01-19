@@ -152,7 +152,7 @@ export default function AboutSection({ ctaLink }: AboutSectionProps) {
                   ease: "easeInOut"
                 }}
               >
-                FIND THE ARCHITECT
+                FIND THE AI ARCHITECT
               </motion.h2>
               
               {/* Matrix-style falling characters */}
