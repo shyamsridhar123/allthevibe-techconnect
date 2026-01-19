@@ -1,8 +1,79 @@
 "use client"
 
-import { useRef } from "react"
-import { motion, useInView } from "framer-motion"
+import { useRef, useState, useCallback } from "react"
+import { motion, useInView, AnimatePresence } from "framer-motion"
 import CTAButton from "./cta-button"
+
+// CSS-animated walking cat component
+function WalkingCat() {
+  return (
+    <div className="relative w-24 h-16 animate-cat-walk">
+      {/* Cat body */}
+      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-14 h-8 bg-white rounded-full" />
+      
+      {/* Cat head */}
+      <div className="absolute bottom-6 right-2 w-8 h-7 bg-white rounded-full">
+        {/* Ears */}
+        <div className="absolute -top-2 left-1 w-0 h-0 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-b-[8px] border-b-white" />
+        <div className="absolute -top-2 right-1 w-0 h-0 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-b-[8px] border-b-white" />
+        {/* Eyes */}
+        <div className="absolute top-2 left-1.5 w-1.5 h-2 bg-black rounded-full animate-blink" />
+        <div className="absolute top-2 right-1.5 w-1.5 h-2 bg-black rounded-full animate-blink" />
+        {/* Nose */}
+        <div className="absolute top-4 left-1/2 -translate-x-1/2 w-1 h-1 bg-pink-300 rounded-full" />
+      </div>
+      
+      {/* Tail */}
+      <div className="absolute bottom-5 left-1 w-6 h-1.5 bg-white rounded-full origin-right animate-tail-wag" style={{ transform: 'rotate(-30deg)' }} />
+      
+      {/* Front legs */}
+      <div className="absolute bottom-0 right-6 w-1.5 h-4 bg-white rounded-full origin-top animate-front-leg" />
+      <div className="absolute bottom-0 right-4 w-1.5 h-4 bg-white rounded-full origin-top animate-front-leg-alt" />
+      
+      {/* Back legs */}
+      <div className="absolute bottom-0 left-4 w-1.5 h-4 bg-white rounded-full origin-top animate-back-leg" />
+      <div className="absolute bottom-0 left-6 w-1.5 h-4 bg-white rounded-full origin-top animate-back-leg-alt" />
+      
+      <style jsx>{`
+        @keyframes cat-walk {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-2px); }
+        }
+        @keyframes tail-wag {
+          0%, 100% { transform: rotate(-30deg); }
+          50% { transform: rotate(-10deg); }
+        }
+        @keyframes front-leg {
+          0%, 100% { transform: rotate(-15deg); }
+          50% { transform: rotate(15deg); }
+        }
+        @keyframes front-leg-alt {
+          0%, 100% { transform: rotate(15deg); }
+          50% { transform: rotate(-15deg); }
+        }
+        @keyframes back-leg {
+          0%, 100% { transform: rotate(10deg); }
+          50% { transform: rotate(-10deg); }
+        }
+        @keyframes back-leg-alt {
+          0%, 100% { transform: rotate(-10deg); }
+          50% { transform: rotate(10deg); }
+        }
+        @keyframes blink {
+          0%, 90%, 100% { transform: scaleY(1); }
+          95% { transform: scaleY(0.1); }
+        }
+        .animate-cat-walk { animation: cat-walk 0.3s ease-in-out infinite; }
+        .animate-tail-wag { animation: tail-wag 0.5s ease-in-out infinite; }
+        .animate-front-leg { animation: front-leg 0.3s ease-in-out infinite; }
+        .animate-front-leg-alt { animation: front-leg-alt 0.3s ease-in-out infinite; }
+        .animate-back-leg { animation: back-leg 0.3s ease-in-out infinite; }
+        .animate-back-leg-alt { animation: back-leg-alt 0.3s ease-in-out infinite; }
+        .animate-blink { animation: blink 3s ease-in-out infinite; }
+      `}</style>
+    </div>
+  )
+}
 
 interface CommunitySectionProps {
   ctaLink: string
@@ -11,6 +82,37 @@ interface CommunitySectionProps {
 export default function CommunitySection({ ctaLink }: CommunitySectionProps) {
   const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+  
+  // Easter egg: Triple-tap rocket to reveal cat walk animation
+  const [showCat, setShowCat] = useState(false)
+  const tapCountRef = useRef(0)
+  const tapTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  const handleRocketTap = useCallback(() => {
+    tapCountRef.current += 1
+    
+    if (tapTimeoutRef.current) {
+      clearTimeout(tapTimeoutRef.current)
+    }
+    
+    tapTimeoutRef.current = setTimeout(() => {
+      tapCountRef.current = 0
+    }, 400) // Reset tap count after 400ms
+    
+    if (tapCountRef.current >= 3) {
+      tapCountRef.current = 0
+      
+      setShowCat(true)
+      
+      // Vibrate on mobile if supported
+      if (navigator.vibrate) {
+        navigator.vibrate([50, 30, 50])
+      }
+      
+      // Hide after 3 seconds
+      setTimeout(() => setShowCat(false), 3000)
+    }
+  }, [])
 
   return (
     <section 
@@ -87,10 +189,10 @@ export default function CommunitySection({ ctaLink }: CommunitySectionProps) {
             }}
           />
 
-          {/* Emoji decoration */}
+          {/* Emoji decoration - Triple tap for easter egg! */}
           <motion.div 
-            className="text-5xl sm:text-6xl mb-6"
-            animate={{ 
+            className="text-5xl sm:text-6xl mb-6 cursor-pointer select-none relative overflow-visible"
+            animate={showCat ? {} : { 
               rotate: [0, 10, -10, 0],
               scale: [1, 1.1, 1]
             }}
@@ -99,9 +201,51 @@ export default function CommunitySection({ ctaLink }: CommunitySectionProps) {
               repeat: Infinity,
               ease: "easeInOut"
             }}
+            onClick={handleRocketTap}
+            whileTap={{ scale: 0.9 }}
+            style={{ minHeight: '80px' }}
           >
-            🚀
+            <AnimatePresence mode="wait">
+              {showCat ? (
+                <motion.div
+                  key="cat"
+                  initial={{ opacity: 0, scale: 0.5, rotate: -180 }}
+                  animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                  exit={{ opacity: 0, scale: 0.5, rotate: 180 }}
+                  transition={{ type: "spring", damping: 15 }}
+                  className="flex justify-center items-center"
+                >
+                  <WalkingCat />
+                </motion.div>
+              ) : (
+                <motion.span
+                  key="rocket"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  🚀
+                </motion.span>
+              )}
+            </AnimatePresence>
           </motion.div>
+
+          {/* Secret found toast */}
+          <AnimatePresence>
+            {showCat && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="absolute top-2 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full text-xs text-white/90 bg-white/10 border border-white/20 backdrop-blur-sm whitespace-nowrap z-10"
+                style={{
+                  textShadow: '0 0 10px rgba(255, 255, 255, 0.3)',
+                }}
+              >
+                🐱 You found the glitch in the matrix!
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* Heading */}
           <h2 

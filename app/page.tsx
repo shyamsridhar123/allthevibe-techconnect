@@ -14,6 +14,7 @@ import Navigation from "@/components/navigation"
 import GridBackground from "@/components/grid-background"
 import AboutSection from "@/components/about-section"
 import CommunitySection from "@/components/community-section"
+import EasterConsole from "@/components/easter-console"
 
 // CTA link to Teams community
 const CTA_LINK = "https://teams.microsoft.com/l/entity/683f3525-d193-4a67-8d91-22093beab1ca/?context=%7B%22internalId%22%3A%2219%3AeyJfdHlwZSI6Ikdyb3VwIiwiaWQiOiIyMzQ4NzIwNjE5NTIifQ%40EngageCommunity%22%2C%22contextType%22%3A%22engageCommunity%22%2C%22subEntityId%22%3A%22%7B%5C%22deepLinkType%5C%22%3A%5C%22crossapp%5C%22%2C%5C%22path%5C%22%3A%5C%22%2Fgroups%2FeyJfdHlwZSI6Ikdyb3VwIiwiaWQiOiIyMzQ4NzIwNjE5NTIifQ%2Fall%5C%22%7D%22%7D"
@@ -62,6 +63,7 @@ export default function LandingPage() {
       <RippleClick />
       <ScrollProgress />
       <Navigation ctaLink={CTA_LINK} />
+      <EasterConsole />
       
       {/* Cutscene overlay */}
       {showCutscene && <Cutscene onComplete={() => {
@@ -77,7 +79,7 @@ export default function LandingPage() {
 
         {/* 3D scene with neural globe - middle layer */}
         <div className="absolute inset-0 z-5 flex items-center justify-center">
-          <div className="w-[260px] h-[260px] sm:w-[300px] sm:h-[300px] md:w-[360px] md:h-[360px] lg:w-[420px] lg:h-[420px] -mt-48 sm:-mt-44 md:-mt-40 lg:-mt-36">
+          <div className="w-[320px] h-[320px] sm:w-[300px] sm:h-[300px] md:w-[360px] md:h-[360px] lg:w-[420px] lg:h-[420px] -mt-48 sm:-mt-44 md:-mt-40 lg:-mt-36">
             <Scene3D 
               showParticles={false} 
               showGlobe={true}
@@ -88,7 +90,7 @@ export default function LandingPage() {
 
         {/* Logo overlay - positioned below the globe */}
         <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
-          <div className="relative flex flex-col items-center mt-[140px] sm:mt-[180px] md:mt-[240px] lg:mt-[280px] px-4">
+          <div className="relative flex flex-col items-center mt-[200px] sm:mt-[180px] md:mt-[240px] lg:mt-[280px] px-4">
             <div className="pointer-events-auto">
               <Logo showCTA={true} ctaLink={CTA_LINK} />
             </div>

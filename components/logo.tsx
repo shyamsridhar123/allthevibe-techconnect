@@ -1,7 +1,7 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import { motion } from "framer-motion"
+import { useEffect, useState, useRef, useCallback } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 
 interface LogoProps {
   showCTA?: boolean
@@ -10,6 +10,45 @@ interface LogoProps {
 
 export default function Logo({ showCTA = false, ctaLink = "#" }: LogoProps) {
   const [isVisible, setIsVisible] = useState(false)
+  
+  // Easter egg: Long-press for Matrix mode
+  const [matrixMode, setMatrixMode] = useState(false)
+  const [showTheOne, setShowTheOne] = useState(false)
+  const longPressTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const isPressingRef = useRef(false)
+
+  const handlePressStart = useCallback(() => {
+    isPressingRef.current = true
+    longPressTimeoutRef.current = setTimeout(() => {
+      if (isPressingRef.current) {
+        // Trigger Matrix mode
+        setMatrixMode(true)
+        setShowTheOne(true)
+        
+        // Vibrate on mobile
+        if (navigator.vibrate) {
+          navigator.vibrate([100, 50, 100, 50, 200])
+        }
+        
+        // Dispatch custom event to speed up matrix rain
+        window.dispatchEvent(new CustomEvent('matrixOverdrive', { detail: { active: true } }))
+        
+        // Revert after 3 seconds
+        setTimeout(() => {
+          setMatrixMode(false)
+          setShowTheOne(false)
+          window.dispatchEvent(new CustomEvent('matrixOverdrive', { detail: { active: false } }))
+        }, 3000)
+      }
+    }, 2000) // 2 second long press
+  }, [])
+
+  const handlePressEnd = useCallback(() => {
+    isPressingRef.current = false
+    if (longPressTimeoutRef.current) {
+      clearTimeout(longPressTimeoutRef.current)
+    }
+  }, [])
 
   useEffect(() => {
     // Delay the logo appearance for dramatic effect
@@ -47,21 +86,89 @@ export default function Logo({ showCTA = false, ctaLink = "#" }: LogoProps) {
       />
 
       {/* Main logo container */}
-      <div className="relative flex flex-col items-center justify-center">
-        {/* Main text - "one shot." */}
+      <div 
+        className="relative flex flex-col items-center justify-center select-none"
+        onMouseDown={handlePressStart}
+        onMouseUp={handlePressEnd}
+        onMouseLeave={handlePressEnd}
+        onTouchStart={handlePressStart}
+        onTouchEnd={handlePressEnd}
+        onTouchCancel={handlePressEnd}
+      >
+        {/* Main text - "one shot." with Matrix mode easter egg */}
         <h1 className="relative text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-center whitespace-nowrap">
-          <span
-            className="relative inline-block text-white"
-            style={{
-              fontFamily: "'Times New Roman', 'Georgia', serif",
-              fontStyle: "italic",
-              fontWeight: 400,
-              letterSpacing: "0.02em",
-              textShadow: "0 0 40px rgba(255, 255, 255, 0.3)",
-            }}
-          >
-            one shot.
-          </span>
+          <AnimatePresence mode="wait">
+            {showTheOne ? (
+              <motion.span
+                key="theone"
+                initial={{ opacity: 0, scale: 1.5 }}
+                animate={{ 
+                  opacity: [0, 1, 1, 0.8, 1],
+                  scale: 1,
+                  x: [0, -2, 2, -1, 0],
+                }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.5 }}
+                className="relative inline-block font-mono font-bold tracking-widest"
+                style={{
+                  color: '#00ff00',
+                  textShadow: "0 0 20px rgba(0, 255, 0, 0.8), 0 0 40px rgba(0, 255, 0, 0.5), 0 0 60px rgba(0, 255, 0, 0.3)",
+                }}
+              >
+                THE ONE.
+              </motion.span>
+            ) : (
+              <motion.span
+                key="oneshot"
+                initial={{ opacity: 0 }}
+                animate={{ 
+                  opacity: 1,
+                  x: matrixMode ? [0, -1, 1, 0] : 0,
+                }}
+                exit={{ opacity: 0 }}
+                className="relative inline-block text-white"
+                style={{
+                  fontFamily: "'Times New Roman', 'Georgia', serif",
+                  fontStyle: "italic",
+                  fontWeight: 400,
+                  letterSpacing: "0.02em",
+                  textShadow: matrixMode 
+                    ? "0 0 20px rgba(0, 255, 0, 0.5), 0 0 40px rgba(0, 255, 0, 0.3)"
+                    : "0 0 40px rgba(255, 255, 255, 0.3)",
+                }}
+              >
+                one shot.
+              </motion.span>
+            )}
+          </AnimatePresence>
+          
+          {/* Glitch overlay effect during matrix mode */}
+          {matrixMode && (
+            <motion.div
+              className="absolute inset-0 pointer-events-none overflow-hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+            >
+              {[...Array(3)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute inset-0"
+                  style={{
+                    background: `linear-gradient(transparent ${30 + i * 20}%, rgba(0, 255, 0, 0.1) ${31 + i * 20}%, transparent ${32 + i * 20}%)`,
+                  }}
+                  animate={{
+                    y: ['-100%', '200%'],
+                  }}
+                  transition={{
+                    duration: 0.8 + i * 0.2,
+                    repeat: Infinity,
+                    ease: "linear",
+                    delay: i * 0.15,
+                  }}
+                />
+              ))}
+            </motion.div>
+          )}
         </h1>
         
         {/* Tagline - And Your Vibes Become Magic */}
