@@ -4,72 +4,91 @@ import { useRef, useState, useCallback } from "react"
 import { motion, useInView, AnimatePresence } from "framer-motion"
 import CTAButton from "./cta-button"
 
-// CSS-animated walking cat component
-function WalkingCat() {
+// CSS-animated black cat with glowing eyes in spotlight
+function SpotlightCat() {
   return (
-    <div className="relative w-24 h-16 animate-cat-walk">
-      {/* Cat body */}
-      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-14 h-8 bg-white rounded-full" />
+    <div className="relative w-32 h-24 flex items-center justify-center">
+      {/* Spotlight beam from above */}
+      <div 
+        className="absolute -top-8 left-1/2 -translate-x-1/2 w-24 h-32"
+        style={{
+          background: 'conic-gradient(from 180deg at 50% 0%, transparent 30%, rgba(255,255,255,0.08) 45%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.08) 55%, transparent 70%)',
+          clipPath: 'polygon(40% 0%, 60% 0%, 100% 100%, 0% 100%)',
+        }}
+      />
       
-      {/* Cat head */}
-      <div className="absolute bottom-6 right-2 w-8 h-7 bg-white rounded-full">
-        {/* Ears */}
-        <div className="absolute -top-2 left-1 w-0 h-0 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-b-[8px] border-b-white" />
-        <div className="absolute -top-2 right-1 w-0 h-0 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-b-[8px] border-b-white" />
-        {/* Eyes */}
-        <div className="absolute top-2 left-1.5 w-1.5 h-2 bg-black rounded-full animate-blink" />
-        <div className="absolute top-2 right-1.5 w-1.5 h-2 bg-black rounded-full animate-blink" />
-        {/* Nose */}
-        <div className="absolute top-4 left-1/2 -translate-x-1/2 w-1 h-1 bg-pink-300 rounded-full" />
+      {/* Spotlight glow on floor */}
+      <div 
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-20 h-4 rounded-full"
+        style={{
+          background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, transparent 70%)',
+          filter: 'blur(4px)',
+        }}
+      />
+      
+      {/* The cat */}
+      <div className="relative w-20 h-14 animate-cat-breathe z-10">
+        {/* Cat body - black silhouette */}
+        <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-12 h-7 bg-black rounded-full shadow-lg" />
+        
+        {/* Cat head */}
+        <div className="absolute bottom-5 right-1 w-8 h-7 bg-black rounded-full">
+          {/* Ears - pointy triangles */}
+          <div className="absolute -top-2 left-0.5 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[10px] border-b-black" />
+          <div className="absolute -top-2 right-0.5 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[10px] border-b-black" />
+          {/* Inner ears */}
+          <div className="absolute -top-1 left-1.5 w-0 h-0 border-l-[3px] border-l-transparent border-r-[3px] border-r-transparent border-b-[5px] border-b-gray-800" />
+          <div className="absolute -top-1 right-1.5 w-0 h-0 border-l-[3px] border-l-transparent border-r-[3px] border-r-transparent border-b-[5px] border-b-gray-800" />
+          
+          {/* Glowing eyes */}
+          <div className="absolute top-2.5 left-1.5 w-1.5 h-1.5 rounded-full animate-glow-pulse" 
+               style={{ 
+                 background: 'radial-gradient(circle, #ffff00 30%, #ffaa00 70%)',
+                 boxShadow: '0 0 6px 2px rgba(255, 255, 0, 0.6), 0 0 12px 4px rgba(255, 200, 0, 0.3)',
+               }} />
+          <div className="absolute top-2.5 right-1.5 w-1.5 h-1.5 rounded-full animate-glow-pulse" 
+               style={{ 
+                 background: 'radial-gradient(circle, #ffff00 30%, #ffaa00 70%)',
+                 boxShadow: '0 0 6px 2px rgba(255, 255, 0, 0.6), 0 0 12px 4px rgba(255, 200, 0, 0.3)',
+               }} />
+          {/* Eye pupils - vertical slits */}
+          <div className="absolute top-2.5 left-2 w-0.5 h-1 bg-black rounded-full" />
+          <div className="absolute top-2.5 right-2 w-0.5 h-1 bg-black rounded-full" />
+          
+          {/* Nose */}
+          <div className="absolute top-5 left-1/2 -translate-x-1/2 w-1.5 h-1 bg-gray-700 rounded-full" />
+        </div>
+        
+        {/* Tail - curved up */}
+        <div className="absolute bottom-3 left-0 w-5 h-1.5 bg-black rounded-full origin-right animate-tail-slow" 
+             style={{ transform: 'rotate(-20deg)' }} />
+        <div className="absolute bottom-4 -left-1 w-3 h-1.5 bg-black rounded-full" 
+             style={{ transform: 'rotate(-60deg)' }} />
+        
+        {/* Front paws */}
+        <div className="absolute bottom-0 right-4 w-2 h-2 bg-black rounded-full" />
+        <div className="absolute bottom-0 right-7 w-2 h-2 bg-black rounded-full" />
+        
+        {/* Back paws */}
+        <div className="absolute bottom-0 left-4 w-2.5 h-2 bg-black rounded-full" />
       </div>
       
-      {/* Tail */}
-      <div className="absolute bottom-5 left-1 w-6 h-1.5 bg-white rounded-full origin-right animate-tail-wag" style={{ transform: 'rotate(-30deg)' }} />
-      
-      {/* Front legs */}
-      <div className="absolute bottom-0 right-6 w-1.5 h-4 bg-white rounded-full origin-top animate-front-leg" />
-      <div className="absolute bottom-0 right-4 w-1.5 h-4 bg-white rounded-full origin-top animate-front-leg-alt" />
-      
-      {/* Back legs */}
-      <div className="absolute bottom-0 left-4 w-1.5 h-4 bg-white rounded-full origin-top animate-back-leg" />
-      <div className="absolute bottom-0 left-6 w-1.5 h-4 bg-white rounded-full origin-top animate-back-leg-alt" />
-      
       <style jsx>{`
-        @keyframes cat-walk {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-2px); }
+        @keyframes cat-breathe {
+          0%, 100% { transform: translateY(0) scale(1); }
+          50% { transform: translateY(-1px) scale(1.01); }
         }
-        @keyframes tail-wag {
-          0%, 100% { transform: rotate(-30deg); }
-          50% { transform: rotate(-10deg); }
+        @keyframes tail-slow {
+          0%, 100% { transform: rotate(-20deg); }
+          50% { transform: rotate(-35deg); }
         }
-        @keyframes front-leg {
-          0%, 100% { transform: rotate(-15deg); }
-          50% { transform: rotate(15deg); }
+        @keyframes glow-pulse {
+          0%, 100% { opacity: 1; filter: brightness(1); }
+          50% { opacity: 0.9; filter: brightness(1.3); }
         }
-        @keyframes front-leg-alt {
-          0%, 100% { transform: rotate(15deg); }
-          50% { transform: rotate(-15deg); }
-        }
-        @keyframes back-leg {
-          0%, 100% { transform: rotate(10deg); }
-          50% { transform: rotate(-10deg); }
-        }
-        @keyframes back-leg-alt {
-          0%, 100% { transform: rotate(-10deg); }
-          50% { transform: rotate(10deg); }
-        }
-        @keyframes blink {
-          0%, 90%, 100% { transform: scaleY(1); }
-          95% { transform: scaleY(0.1); }
-        }
-        .animate-cat-walk { animation: cat-walk 0.3s ease-in-out infinite; }
-        .animate-tail-wag { animation: tail-wag 0.5s ease-in-out infinite; }
-        .animate-front-leg { animation: front-leg 0.3s ease-in-out infinite; }
-        .animate-front-leg-alt { animation: front-leg-alt 0.3s ease-in-out infinite; }
-        .animate-back-leg { animation: back-leg 0.3s ease-in-out infinite; }
-        .animate-back-leg-alt { animation: back-leg-alt 0.3s ease-in-out infinite; }
-        .animate-blink { animation: blink 3s ease-in-out infinite; }
+        .animate-cat-breathe { animation: cat-breathe 2s ease-in-out infinite; }
+        .animate-tail-slow { animation: tail-slow 3s ease-in-out infinite; }
+        .animate-glow-pulse { animation: glow-pulse 1.5s ease-in-out infinite; }
       `}</style>
     </div>
   )
@@ -209,13 +228,13 @@ export default function CommunitySection({ ctaLink }: CommunitySectionProps) {
               {showCat ? (
                 <motion.div
                   key="cat"
-                  initial={{ opacity: 0, scale: 0.5, rotate: -180 }}
-                  animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                  exit={{ opacity: 0, scale: 0.5, rotate: 180 }}
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.5 }}
                   transition={{ type: "spring", damping: 15 }}
                   className="flex justify-center items-center"
                 >
-                  <WalkingCat />
+                  <SpotlightCat />
                 </motion.div>
               ) : (
                 <motion.span
