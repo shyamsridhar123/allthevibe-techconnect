@@ -4,7 +4,7 @@ import "./globals.css"
 
 export const metadata: Metadata = {
   title: "OneShot = All the Vibes",
-  description: "All The Vibes is a live, interactive meet-up where we explore the art and science of AI pair programming—also known as vibe coding.",
+  description: "A futuristic, immersive landing page built with Next.js, React, and Three.js featuring cutting-edge web technologies and stunning visual effects.",
   icons: {
     icon: [
       { url: "/icon.png", sizes: "32x32", type: "image/png" },
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "OneShot = All the Vibes",
-    description: "All The Vibes is a live, interactive meet-up where we explore the art and science of AI pair programming—also known as vibe coding.",
+    description: "A futuristic, immersive landing page built with Next.js, React, and Three.js featuring cutting-edge web technologies and stunning visual effects.",
     images: [
       {
         url: "/images/og-image.png",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "OneShot - All The Vibes",
-    description: "All The Vibes is a live, interactive meet-up where we explore the art and science of AI pair programming—also known as vibe coding.",
+    description: "A futuristic, immersive landing page built with Next.js, React, and Three.js featuring cutting-edge web technologies and stunning visual effects.",
     images: ["/images/og-image.png"],
   },
 }
