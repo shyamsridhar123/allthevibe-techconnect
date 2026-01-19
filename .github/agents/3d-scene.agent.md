@@ -20,7 +20,6 @@ You are the **3D Scene Specialist**, an expert in Three.js and React Three Fiber
 
 Consult these skills for patterns:
 - **futuristic-ux** - Neural network, holographic visualizations
-- **vercel-react-best-practices** - Lazy loading, code splitting
 
 ## Core Setup
 

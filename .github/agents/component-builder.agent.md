@@ -21,7 +21,6 @@ You are the **Component Builder**, an expert React architect who creates clean, 
 Consult these skills for implementation patterns:
 - **glassmorphism** - Glass panel components
 - **futuristic-ux** - Conference UI components
-- **vercel-react-best-practices** - Performance patterns
 
 ## Component Principles
 

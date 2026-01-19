@@ -1,30 +1,71 @@
-# Futuristic landing page
+# AllTheVibe TechConnect
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+A futuristic, immersive landing page built with Next.js, React, and Three.js featuring cutting-edge web technologies and stunning visual effects.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/shyamsridhar123s-projects/v0-futuristic-landing-page)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/t7wB5tZmRHK)
+## Features
 
-## Overview
+- 🎨 Matrix-inspired visual effects and cyberpunk aesthetics
+- 🎭 Advanced animations with Framer Motion
+- 🎮 Interactive 3D scenes powered by React Three Fiber
+- 🌈 Modern UI components with Radix UI
+- 🎯 Responsive design with Tailwind CSS
+- ⚡ Built with Next.js 16 and React 19
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+## Getting Started
 
-## Deployment
+### Prerequisites
 
-Your project is live at:
+- Node.js 20 or higher
+- pnpm (recommended) or npm
 
-**[https://vercel.com/shyamsridhar123s-projects/v0-futuristic-landing-page](https://vercel.com/shyamsridhar123s-projects/v0-futuristic-landing-page)**
+### Installation
 
-## Build your app
+```bash
+# Clone the repository
+git clone https://github.com/shyamsridhar123/allthevibe-techconnect.git
 
-Continue building your app on:
+# Navigate to project directory
+cd allthevibe-techconnect
 
-**[https://v0.app/chat/t7wB5tZmRHK](https://v0.app/chat/t7wB5tZmRHK)**
+# Install dependencies
+pnpm install
 
-## How It Works
+# Run development server
+pnpm dev
+```
 
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+Open [http://localhost:3000](http://localhost:3000) to view the application.
+
+## Build
+
+```bash
+# Create production build
+pnpm build
+
+# Start production server
+pnpm start
+```
+
+## Technology Stack
+
+- **Framework:** Next.js 16
+- **UI Library:** React 19
+- **3D Graphics:** React Three Fiber, Three.js
+- **Animation:** Framer Motion
+- **Styling:** Tailwind CSS
+- **UI Components:** Radix UI
+- **Icons:** Lucide React
+
+## Project Structure
+
+```
+├── app/              # Next.js app directory
+├── components/       # React components
+├── lib/             # Utility functions
+├── public/          # Static assets
+└── styles/          # Global styles
+```
+
+## License
+
+This project is private and proprietary.

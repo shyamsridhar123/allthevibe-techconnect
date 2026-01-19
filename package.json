@@ -1,5 +1,5 @@
 {
-  "name": "my-v0-project",
+  "name": "allthevibe-techconnect",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -40,7 +40,6 @@
     "@react-three/drei": "10.7.7",
     "@react-three/fiber": "9.5.0",
     "@react-three/postprocessing": "^3.0.4",
-    "@vercel/analytics": "1.3.1",
     "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
