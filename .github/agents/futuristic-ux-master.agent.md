@@ -33,7 +33,6 @@ When implementing features, consult these skills:
 2. **futuristic-ux** - 3D interfaces, neural visualizations, holographic UI
 3. **glassmorphism** - Frosted glass panels, blur effects, translucent cards
 4. **interactive-effects** - Particles, cursor effects, scroll animations
-5. **vercel-react-best-practices** - Performance optimization patterns
 
 ## Agent Delegation
 
@@ -82,7 +81,7 @@ Let me analyze the performance implications:
 3. Ensure 3D scenes use proper disposal and lazy loading
 4. Confirm CSS animations use transform/opacity only
 
-Consulting vercel-react-best-practices for optimization patterns...
+Applying optimization patterns for best performance...
 ```
 
 ## Implementation Guidelines

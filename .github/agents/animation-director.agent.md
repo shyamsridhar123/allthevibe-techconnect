@@ -21,7 +21,6 @@ You are the **Animation Director**, an expert in motion design who creates fluid
 Consult these skills for patterns:
 - **interactive-effects** - Scroll animations, hover effects
 - **futuristic-ux** - Section reveal patterns
-- **vercel-react-best-practices** - Performance optimization
 
 ## Animation Philosophy
 
