@@ -116,14 +116,27 @@ export default function CommunitySection({ ctaLink }: CommunitySectionProps) {
           </h2>
 
           {/* Subtext */}
-          <p className="text-base sm:text-lg text-white/60 mb-8 max-w-2xl mx-auto">
-            Hop into our community and start building the future with thousands of other creators. 
-            The only thing missing is you.
+          <p className="text-base sm:text-lg text-white/60 mb-6 max-w-2xl mx-auto">
+            Join 500+ engineers learning to build faster with AI.
+            <br className="hidden sm:block" />
+            Share prompts, ship projects, and level up together.
           </p>
+
+          {/* Benefits chips */}
+          <div className="flex flex-wrap justify-center gap-2 mb-8">
+            {['Daily Tips', 'Project Showcases', 'Live Sessions', 'Prompt Library'].map((benefit) => (
+              <span 
+                key={benefit}
+                className="px-3 py-1 text-xs text-white/70 bg-white/5 border border-white/10 rounded-full"
+              >
+                {benefit}
+              </span>
+            ))}
+          </div>
 
           {/* CTA */}
           <CTAButton href={ctaLink} size="lg">
-            Join Us
+            Start Your Journey
           </CTAButton>
         </div>
       </motion.div>

@@ -80,9 +80,14 @@ export default function Navigation({ ctaLink }: NavigationProps) {
               href={ctaLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 sm:px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:scale-105 border border-white/30 hover:border-white/60 hover:bg-white/10 text-white"
+              className="relative px-4 sm:px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:scale-105 bg-white/10 border border-white/40 hover:border-white/70 hover:bg-white/20 text-white backdrop-blur-sm"
             >
-              Join Us
+              <span className="flex items-center gap-1.5">
+                Join the Vibe
+                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </span>
             </a>
 
             {/* Mobile Menu Button */}

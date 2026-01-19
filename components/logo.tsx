@@ -15,7 +15,7 @@ export default function Logo({ showCTA = false, ctaLink = "#" }: LogoProps) {
     // Delay the logo appearance for dramatic effect
     const timer = setTimeout(() => {
       setIsVisible(true)
-    }, 4500)
+    }, 4700)
 
     return () => clearTimeout(timer)
   }, [])
@@ -64,15 +64,23 @@ export default function Logo({ showCTA = false, ctaLink = "#" }: LogoProps) {
           </span>
         </h1>
         
-        {/* Tagline - "ALL THE VIBES" */}
-        <h2 className="relative text-sm sm:text-base md:text-lg text-center mt-4 sm:mt-6 tracking-[0.3em] sm:tracking-[0.4em] uppercase">
+        {/* Tagline - And Your Vibes Become Magic */}
+        <p className="text-xs sm:text-sm text-white/50 tracking-[0.15em] mt-3 sm:mt-4 font-light">
+          And Your Vibes Become Magic
+        </p>
+        
+        {/* Divider dot */}
+        <div className="w-1 h-1 rounded-full bg-white/30 mt-5 sm:mt-6" />
+        
+        {/* ALL THE VIBES */}
+        <h2 className="relative text-sm sm:text-base md:text-lg text-center mt-5 sm:mt-6 tracking-[0.3em] sm:tracking-[0.4em] uppercase">
           <span className="text-white font-medium">
             ALL THE VIBES
           </span>
         </h2>
         
         {/* Since line */}
-        <p className="text-xs sm:text-sm text-white/70 tracking-[0.2em] mt-1 uppercase font-medium">
+        <p className="text-xs text-white/50 tracking-[0.2em] mt-1.5 uppercase font-light">
           SINCE 2025
         </p>
       </div>
@@ -89,24 +97,38 @@ export default function Logo({ showCTA = false, ctaLink = "#" }: LogoProps) {
             href={ctaLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="relative px-8 py-3 rounded-full text-base font-semibold transition-all duration-300 border border-white/30 hover:border-white/60 hover:bg-white/10"
+            className="relative group px-8 py-3 rounded-full text-base font-semibold transition-all duration-300 border border-white/40 hover:border-white/80 bg-white/5 hover:bg-white/15 backdrop-blur-sm"
             style={{
               color: '#ffffff',
             }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
           >
+            {/* Pulse glow effect */}
+            <motion.div
+              className="absolute inset-0 rounded-full"
+              animate={{
+                boxShadow: [
+                  '0 0 20px rgba(255,255,255,0.1)',
+                  '0 0 40px rgba(255,255,255,0.2)',
+                  '0 0 20px rgba(255,255,255,0.1)'
+                ]
+              }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            />
             <span className="relative z-10 flex items-center gap-2">
-              Join Us
-              <svg 
+              Start Your Journey
+              <motion.svg 
                 className="w-4 h-4" 
                 viewBox="0 0 24 24" 
                 fill="none" 
                 stroke="currentColor" 
                 strokeWidth="2"
+                animate={{ x: [0, 3, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
               >
                 <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
+              </motion.svg>
             </span>
           </motion.a>
         </motion.div>

@@ -79,9 +79,11 @@ export default function AboutSection({ ctaLink }: AboutSectionProps) {
         {/* Tagline */}
         <motion.p 
           variants={itemVariants}
-          className="text-lg sm:text-xl md:text-2xl text-white/60 mb-8 font-light"
+          className="text-lg sm:text-xl md:text-2xl text-white/70 mb-8 font-light leading-relaxed"
         >
-          Empowering every team member to become a better software engineer
+          Where engineers come together to master AI-assisted development
+          <br />
+          <span className="text-white/50 text-base sm:text-lg">— and become 10x more effective</span>
         </motion.p>
 
         {/* Description */}

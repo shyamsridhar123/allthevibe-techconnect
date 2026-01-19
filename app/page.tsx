@@ -37,7 +37,7 @@ export default function LandingPage() {
     const timer = setTimeout(() => {
       setShowCutscene(false)
       setCutsceneComplete(true)
-    }, 4000)
+    }, 4500)
 
     return () => clearTimeout(timer)
   }, [])
@@ -73,7 +73,7 @@ export default function LandingPage() {
 
         {/* 3D scene with neural globe - middle layer */}
         <div className="absolute inset-0 z-5 flex items-center justify-center">
-          <div className="w-[220px] h-[220px] sm:w-[280px] sm:h-[280px] md:w-[350px] md:h-[350px] lg:w-[400px] lg:h-[400px] -mt-16 sm:-mt-12 md:-mt-8">
+          <div className="w-[200px] h-[200px] sm:w-[260px] sm:h-[260px] md:w-[320px] md:h-[320px] lg:w-[380px] lg:h-[380px] -mt-48 sm:-mt-44 md:-mt-40 lg:-mt-36">
             <Scene3D 
               showParticles={false} 
               showGlobe={true}
@@ -84,7 +84,7 @@ export default function LandingPage() {
 
         {/* Logo overlay - positioned below the globe */}
         <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
-          <div className="relative flex flex-col items-center mt-[180px] sm:mt-[220px] md:mt-[280px] lg:mt-[320px] px-4">
+          <div className="relative flex flex-col items-center mt-[140px] sm:mt-[180px] md:mt-[240px] lg:mt-[280px] px-4">
             <div className="pointer-events-auto">
               <Logo showCTA={true} ctaLink={CTA_LINK} />
             </div>
