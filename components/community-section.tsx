@@ -124,7 +124,7 @@ export default function CommunitySection({ ctaLink }: CommunitySectionProps) {
 
           {/* Benefits chips */}
           <div className="flex flex-wrap justify-center gap-2 mb-8">
-            {['Daily Tips', 'Project Showcases', 'Live Sessions', 'Prompt Library'].map((benefit) => (
+            {['Daily Tips', 'Project Showcases', 'Live Sessions', 'And a Lot of Fun'].map((benefit) => (
               <span 
                 key={benefit}
                 className="px-3 py-1 text-xs text-white/70 bg-white/5 border border-white/10 rounded-full"
