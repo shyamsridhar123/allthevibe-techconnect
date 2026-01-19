@@ -43,6 +43,7 @@ interface Particle {
   life: number
   maxLife: number
   type: 'dust' | 'digital'
+  color?: 'white' | 'cyan' | 'purple' // Color variation for digital particles
 }
 
 // Spatial Audio Manager - creates immersive 3D audio
@@ -439,6 +440,12 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
     // Spawn new particles
     const spawnParticle = (type: 'dust' | 'digital') => {
       const id = particleIdCounter.current++
+      // Assign color to digital particles - weighted towards cyan
+      const colorRoll = Math.random()
+      const color: 'white' | 'cyan' | 'purple' = type === 'digital' 
+        ? (colorRoll < 0.5 ? 'cyan' : colorRoll < 0.75 ? 'purple' : 'white')
+        : 'white'
+      
       const particle: Particle = {
         id,
         x: type === 'dust' 
@@ -453,7 +460,8 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
         speedY: type === 'dust' ? 0.1 + Math.random() * 0.3 : (Math.random() - 0.5) * 0.8,
         life: 0,
         maxLife: 100 + Math.random() * 200,
-        type
+        type,
+        color
       }
       localParticles.push(particle)
     }
@@ -487,20 +495,33 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
         ctx.save()
         
         if (p.type === 'dust') {
-          // Dust motes - soft white circles
+          // Dust motes - soft white/cyan circles near doorway
           const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size)
-          gradient.addColorStop(0, `rgba(255, 255, 255, ${currentOpacity})`)
-          gradient.addColorStop(1, `rgba(255, 255, 255, 0)`)
+          // Dust near doorway gets cyan tint
+          const inDoorwayArea = p.x > canvas.width * 0.35 && p.x < canvas.width * 0.65
+          if (inDoorwayArea) {
+            gradient.addColorStop(0, `rgba(0, 255, 255, ${currentOpacity * 0.8})`)
+            gradient.addColorStop(0.5, `rgba(168, 85, 247, ${currentOpacity * 0.4})`)
+            gradient.addColorStop(1, `rgba(255, 255, 255, 0)`)
+          } else {
+            gradient.addColorStop(0, `rgba(255, 255, 255, ${currentOpacity})`)
+            gradient.addColorStop(1, `rgba(255, 255, 255, 0)`)
+          }
           ctx.fillStyle = gradient
           ctx.beginPath()
           ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2)
           ctx.fill()
         } else {
-          // Digital fragments - white rectangles
-          ctx.fillStyle = `rgba(255, 255, 255, ${currentOpacity})`
+          // Digital fragments - colored rectangles
+          const colorMap = {
+            cyan: `rgba(0, 255, 255, ${currentOpacity})`,
+            purple: `rgba(168, 85, 247, ${currentOpacity})`,
+            white: `rgba(255, 255, 255, ${currentOpacity})`
+          }
+          ctx.fillStyle = colorMap[p.color || 'white']
           ctx.fillRect(p.x, p.y, p.size * 0.3, p.size)
           
-          // Occasional character
+          // Occasional character with matching color
           if (Math.random() < 0.02) {
             ctx.font = `${p.size * 2}px monospace`
             ctx.fillText(String.fromCharCode(0x30A0 + Math.random() * 96), p.x, p.y)
@@ -644,7 +665,7 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
         style={{ mixBlendMode: 'screen' }}
       />
       
-      {/* Screen tear effect overlay */}
+      {/* Screen tear effect overlay - with cyan/purple glitch */}
       {screenTear && (
         <div className="absolute inset-0 z-[55] pointer-events-none">
           {/* Horizontal tear lines */}
@@ -655,7 +676,9 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
               style={{
                 top: `${20 + i * 25 + Math.random() * 10}%`,
                 height: '2px',
-                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.5), rgba(200,200,200,0.5), transparent)',
+                background: i % 2 === 0 
+                  ? 'linear-gradient(90deg, transparent, rgba(0,255,255,0.6), rgba(168,85,247,0.5), transparent)'
+                  : 'linear-gradient(90deg, transparent, rgba(168,85,247,0.5), rgba(0,255,255,0.6), transparent)',
                 transform: `translateX(${(Math.random() - 0.5) * 20}px)`,
               }}
             />
@@ -680,9 +703,9 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
                    px-3 py-2 sm:px-4 sm:py-2 
                    font-mono text-xs sm:text-sm text-white/70 
                    border border-white/30 rounded backdrop-blur-sm
-                   hover:text-white hover:border-white/60 hover:bg-white/10
-                   active:bg-white/20
-                   transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/50
+                   hover:text-cyan-400 hover:border-cyan-400/60 hover:bg-cyan-400/10
+                   active:bg-cyan-400/20
+                   transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-cyan-400/50
                    min-h-[44px] min-w-[44px] flex items-center justify-center"
         aria-label="Skip cutscene"
       >
@@ -753,7 +776,7 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
           <motion.div 
             className="absolute left-[25%] right-[25%] top-0 bottom-0"
             animate={{
-              boxShadow: `inset 0 0 ${100 + doorwayIntensity * 50}px rgba(255,255,255,${0.1 + doorwayIntensity * 0.1})`
+              boxShadow: `inset 0 0 ${100 + doorwayIntensity * 50}px rgba(0,255,255,${0.1 + doorwayIntensity * 0.15}), inset 0 0 ${80 + doorwayIntensity * 40}px rgba(168,85,247,${0.05 + doorwayIntensity * 0.08})`
             }}
             transition={{ duration: 0.3 }}
             style={{
@@ -766,7 +789,7 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
               boxShadow: 'inset 0 0 20px rgba(0,0,0,0.5)' 
             }} />
             
-            {/* White glow from within - intensifies as cat passes */}
+            {/* Cyan/purple glow from within - intensifies as cat passes */}
             <motion.div 
               className="absolute inset-[10%] rounded-full"
               animate={{ 
@@ -775,11 +798,11 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
               }}
               transition={{ duration: 0.3 }}
               style={{
-                background: 'radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(200,200,200,0.08) 50%, transparent 70%)',
+                background: 'radial-gradient(circle, rgba(0,255,255,0.2) 0%, rgba(168,85,247,0.1) 50%, transparent 70%)',
               }}
             />
             
-            {/* Volumetric light rays from doorway */}
+            {/* Volumetric light rays from doorway - cyan tinted */}
             <div 
               className="absolute inset-0 overflow-hidden"
               style={{ opacity: doorwayIntensity * 0.6 * lightFlicker }}
@@ -792,7 +815,9 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
                     left: `${20 + i * 15}%`,
                     width: '2px',
                     height: '150%',
-                    background: `linear-gradient(to bottom, transparent, rgba(255,255,255,${0.1 + i * 0.02}), transparent)`,
+                    background: i % 2 === 0 
+                      ? `linear-gradient(to bottom, transparent, rgba(0,255,255,${0.15 + i * 0.03}), transparent)`
+                      : `linear-gradient(to bottom, transparent, rgba(168,85,247,${0.1 + i * 0.02}), transparent)`,
                     transformOrigin: 'bottom center',
                     transform: `rotate(${-20 + i * 10}deg)`,
                   }}
@@ -837,7 +862,7 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
             boxShadow: 'inset 20px 0 40px rgba(0,0,0,0.4)'
           }}
         >
-          {/* Cables hanging - white/gray, with dynamic sway */}
+          {/* Cables hanging - with subtle cyan/purple glow, dynamic sway */}
           <motion.div 
             className="absolute right-[20%] top-[10%] w-3 h-[60%]"
             animate={{ 
@@ -848,7 +873,7 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
             style={{ transformOrigin: 'top center' }}
           >
             <div className="w-full h-full bg-gradient-to-b from-[#ffffff] via-[#aaaaaa] to-[#666666] rounded-full opacity-80" 
-                 style={{ boxShadow: '0 0 15px rgba(255,255,255,0.3)' }} />
+                 style={{ boxShadow: '0 0 15px rgba(0,255,255,0.4), 0 0 25px rgba(0,255,255,0.2)' }} />
           </motion.div>
           <motion.div 
             className="absolute right-[35%] top-[15%] w-2 h-[50%]"
@@ -860,7 +885,7 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
             style={{ transformOrigin: 'top center' }}
           >
             <div className="w-full h-full bg-gradient-to-b from-[#cccccc] via-[#888888] to-[#444444] rounded-full opacity-80"
-                 style={{ boxShadow: '0 0 15px rgba(255,255,255,0.2)' }} />
+                 style={{ boxShadow: '0 0 15px rgba(168,85,247,0.35), 0 0 25px rgba(168,85,247,0.15)' }} />
           </motion.div>
           <motion.div 
             className="absolute right-[50%] top-[20%] w-2 h-[40%]"
@@ -871,7 +896,8 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
             transition={{ ...springs.gentle, delay: 0.2 }}
             style={{ transformOrigin: 'top center' }}
           >
-            <div className="w-full h-full bg-gradient-to-b from-[#dddddd] via-[#999999] to-[#555555] rounded-full opacity-70" />
+            <div className="w-full h-full bg-gradient-to-b from-[#dddddd] via-[#999999] to-[#555555] rounded-full opacity-70"
+                 style={{ boxShadow: '0 0 12px rgba(0,255,255,0.3)' }} />
           </motion.div>
           
           {/* Wall molding */}
@@ -934,7 +960,7 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
             }}
           />
 
-          {/* Dynamic floor pulse following cat */}
+          {/* Dynamic floor pulse following cat - cyan glow */}
           <motion.div 
             className="absolute pointer-events-none"
             animate={{
@@ -945,7 +971,7 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
             style={{
               width: '20%',
               height: '100%',
-              background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.15) 0%, transparent 60%)',
+              background: 'radial-gradient(ellipse at center, rgba(0,255,255,0.18) 0%, rgba(168,85,247,0.08) 40%, transparent 60%)',
               filter: 'blur(20px)'
             }}
           />
@@ -976,7 +1002,7 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
         }}
       />
 
-      {/* Volumetric light from doorway - dynamic intensity with light rays */}
+      {/* Volumetric light from doorway - dynamic intensity with cyan/purple light rays */}
       <motion.div 
         className="absolute left-[30%] right-[30%] top-[20%] bottom-[40%] pointer-events-none"
         animate={{
@@ -984,17 +1010,17 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
         }}
         transition={{ duration: 0.3 }}
         style={{
-          background: 'linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.05) 50%, rgba(200,200,200,0.06) 100%)',
+          background: 'linear-gradient(180deg, transparent 0%, rgba(0,255,255,0.06) 50%, rgba(168,85,247,0.04) 100%)',
           clipPath: 'polygon(40% 0%, 60% 0%, 100% 100%, 0% 100%)'
         }}
       >
-        {/* Dust particles visible in light beam */}
+        {/* Dust particles visible in light beam - cyan tinted */}
         <div className="absolute inset-0" style={{
-          background: `radial-gradient(circle at ${50 + Math.sin(Date.now() / 1000) * 10}% ${30 + Math.cos(Date.now() / 800) * 10}%, rgba(255,255,255,0.1) 0%, transparent 50%)`
+          background: `radial-gradient(circle at ${50 + Math.sin(Date.now() / 1000) * 10}% ${30 + Math.cos(Date.now() / 800) * 10}%, rgba(0,255,255,0.12) 0%, transparent 50%)`
         }} />
       </motion.div>
 
-      {/* Spotlight on floor where cat walks - follows cat */}
+      {/* Spotlight on floor where cat walks - follows cat with cyan tint */}
       <motion.div 
         className="absolute bottom-[30%] h-[20%] pointer-events-none"
         animate={{
@@ -1003,7 +1029,7 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
         }}
         transition={{ duration: 0.1 }}
         style={{
-          background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.08) 0%, rgba(200,200,200,0.04) 40%, transparent 70%)'
+          background: 'radial-gradient(ellipse at center, rgba(0,255,255,0.1) 0%, rgba(168,85,247,0.05) 40%, transparent 70%)'
         }}
       />
 
@@ -1049,7 +1075,7 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
               mixBlendMode: 'screen'
             }}
           >
-            {/* Ghost Lottie Cat Animation */}
+            {/* Ghost Lottie Cat Animation - purple/cyan chromatic shift */}
             {memoizedAnimationData ? (
               <div className="w-48 h-28 md:w-64 md:h-36 lg:w-80 lg:h-44">
                 <Lottie
@@ -1059,16 +1085,16 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
                   style={{ 
                     width: '100%', 
                     height: '100%',
-                    filter: 'brightness(0.7) saturate(0) drop-shadow(0 0 15px rgba(255,255,255,0.4))',
+                    filter: 'brightness(0.7) saturate(0.3) hue-rotate(180deg) drop-shadow(0 0 15px rgba(168,85,247,0.5)) drop-shadow(0 0 25px rgba(0,255,255,0.3))',
                     opacity: 0.6
                   }}
                 />
               </div>
             ) : (
-              /* Ghost fallback silhouette */
+              /* Ghost fallback silhouette - purple tinted */
               <div className="w-32 h-20 sm:w-40 sm:h-24 md:w-56 md:h-32 lg:w-72 lg:h-40 relative opacity-40">
                 <svg viewBox="0 0 200 100" className="w-full h-full" style={{ filter: 'blur(2px)' }}>
-                  <g fill="rgba(255,255,255,0.3)">
+                  <g fill="rgba(168,85,247,0.4)">
                     <ellipse cx="100" cy="55" rx="45" ry="22" />
                     <circle cx="145" cy="40" r="20" />
                     <polygon points="130,22 138,5 146,22" />
@@ -1079,11 +1105,11 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
               </div>
             )}
             
-            {/* Ghost glow trail */}
+            {/* Ghost glow trail - purple/cyan gradient */}
             <div 
               className="absolute inset-0 -z-10 blur-2xl opacity-50"
               style={{
-                background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.25) 0%, transparent 70%)',
+                background: 'radial-gradient(ellipse at center, rgba(168,85,247,0.3) 0%, rgba(0,255,255,0.15) 50%, transparent 70%)',
                 transform: 'scale(1.5)'
               }}
             />
@@ -1168,19 +1194,19 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
                     <rect x="78" y="65" width="8" height="24" rx="4" className="animate-back-leg-alt" />
                   </g>
                   
-                  {/* Glowing eyes */}
+                  {/* Glowing eyes - cyan */}
                   <g filter="url(#catGlow)">
-                    <ellipse cx="140" cy="38" rx="4" ry="5" fill="#ffffff">
+                    <ellipse cx="140" cy="38" rx="4" ry="5" fill="#00ffff">
                       <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite" />
                     </ellipse>
-                    <ellipse cx="152" cy="38" rx="4" ry="5" fill="#ffffff">
+                    <ellipse cx="152" cy="38" rx="4" ry="5" fill="#00ffff">
                       <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite" />
                     </ellipse>
                   </g>
                   
-                  {/* Eye glow rings */}
-                  <ellipse cx="140" cy="38" rx="7" ry="8" fill="none" stroke="#ffffff" strokeWidth="1.5" opacity="0.4" />
-                  <ellipse cx="152" cy="38" rx="7" ry="8" fill="none" stroke="#ffffff" strokeWidth="1.5" opacity="0.4" />
+                  {/* Eye glow rings - cyan */}
+                  <ellipse cx="140" cy="38" rx="7" ry="8" fill="none" stroke="#00ffff" strokeWidth="1.5" opacity="0.5" />
+                  <ellipse cx="152" cy="38" rx="7" ry="8" fill="none" stroke="#00ffff" strokeWidth="1.5" opacity="0.5" />
                   
                   {/* Rim light outline */}
                   <ellipse cx="100" cy="55" rx="46" ry="23" fill="none" stroke="#ffffff" strokeWidth="0.5" opacity="0.3" />
@@ -1223,9 +1249,9 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
               />
             </div>
             
-            {/* Chromatic aberration layers - grayscale */}
+            {/* Chromatic aberration layers - cyan and purple */}
             <motion.span
-              className="absolute inset-0 text-gray-300/60"
+              className="absolute inset-0"
               animate={{
                 x: [0, -3, 3, -2, 1, 0],
                 y: [0, 1, -1, 0],
@@ -1235,35 +1261,35 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
                   : 'inset(0)'
               }}
               transition={{ duration: 0.12, repeat: Infinity, repeatType: "reverse" }}
-              style={{ mixBlendMode: 'screen' }}
+              style={{ mixBlendMode: 'screen', color: 'rgba(0,255,255,0.7)' }}
             >
               {"// déjà vu..."}
             </motion.span>
             <motion.span
-              className="absolute inset-0 text-gray-400/60"
+              className="absolute inset-0"
               animate={{
                 x: [0, 3, -3, 2, -1, 0],
                 y: [0, -1, 1, 0],
                 opacity: [0.5, 0.8, 0.5, 0.9, 0.5]
               }}
               transition={{ duration: 0.12, repeat: Infinity, repeatType: "reverse", delay: 0.03 }}
-              style={{ mixBlendMode: 'screen' }}
+              style={{ mixBlendMode: 'screen', color: 'rgba(168,85,247,0.7)' }}
             >
               {"// déjà vu..."}
             </motion.span>
             <motion.span
-              className="absolute inset-0 text-gray-500/30"
+              className="absolute inset-0"
               animate={{
                 x: [0, 1, -1, 0],
                 opacity: [0.2, 0.4, 0.2]
               }}
               transition={{ duration: 0.15, repeat: Infinity }}
-              style={{ mixBlendMode: 'screen' }}
+              style={{ mixBlendMode: 'screen', color: 'rgba(255,255,255,0.4)' }}
             >
               {"// déjà vu..."}
             </motion.span>
             
-            {/* Main text with glitch */}
+            {/* Main text with glitch - cyan glow */}
             <motion.span
               className="relative"
               animate={{
@@ -1275,12 +1301,12 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
               style={{
                 color: '#ffffff',
                 textShadow: `
-                  0 0 10px #ffffff, 
-                  0 0 20px #ffffff, 
-                  0 0 30px #aaaaaa, 
-                  2px 0 #888888, 
-                  -2px 0 #ffffff,
-                  0 0 40px rgba(255,255,255,0.5)
+                  0 0 10px #00ffff, 
+                  0 0 20px #00ffff, 
+                  0 0 30px #a855f7, 
+                  2px 0 #a855f7, 
+                  -2px 0 #00ffff,
+                  0 0 40px rgba(0,255,255,0.5)
                 `,
               }}
             >
