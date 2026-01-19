@@ -617,7 +617,7 @@ export default function Cutscene({ onComplete }: CutsceneProps) {
   const ghostCatPosition = -15 + ghostCatProgress * 130 // Ghost follows behind
   const catScale = 1 - Math.abs(catProgress * 100 - 50) * 0.001
   const ghostCatScale = 1 - Math.abs(ghostCatProgress * 100 - 50) * 0.001
-  const showText = catProgress > 0.3 && catProgress < 0.7
+  const showText = catProgress > 0.2 && catProgress < 0.8
   const showGhostCat = ghostCatProgress > 0 && ghostCatProgress < 0.95 && phase === 'walking' && !isSmallScreen // Hide ghost on very small screens
   const doorwayIntensity = 0.5 + Math.sin(catProgress * Math.PI) * 0.5 // Peaks at center
   const cableSwayIntensity = catProgress > 0.5 ? (catProgress - 0.5) * 2 : 0 // Sways when cat passes
