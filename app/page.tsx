@@ -52,6 +52,11 @@ export default function LandingPage() {
 
   return (
     <div className="relative w-full min-h-screen bg-[#050010]">
+      {/* Global background - Matrix rain spans entire page */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <MatrixRain />
+      </div>
+      
       {/* Global interactive effects */}
       <SpotlightCursor />
       <RippleClick />
@@ -69,11 +74,10 @@ export default function LandingPage() {
         {/* Background layers */}
         <GridBackground />
         <FloatingOrbs />
-        <MatrixRain />
 
         {/* 3D scene with neural globe - middle layer */}
         <div className="absolute inset-0 z-5 flex items-center justify-center">
-          <div className="w-[200px] h-[200px] sm:w-[260px] sm:h-[260px] md:w-[320px] md:h-[320px] lg:w-[380px] lg:h-[380px] -mt-48 sm:-mt-44 md:-mt-40 lg:-mt-36">
+          <div className="w-[260px] h-[260px] sm:w-[300px] sm:h-[300px] md:w-[360px] md:h-[360px] lg:w-[420px] lg:h-[420px] -mt-48 sm:-mt-44 md:-mt-40 lg:-mt-36">
             <Scene3D 
               showParticles={false} 
               showGlobe={true}
